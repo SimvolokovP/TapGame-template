@@ -1,0 +1,12 @@
+.score-block {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 40px;
+    gap: 8px;
+
+    &__text {
+        font-size: 32px;
+    }
+}

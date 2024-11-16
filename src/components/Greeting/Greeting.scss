@@ -1,0 +1,21 @@
+.greeting {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &__title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    color: var(--tg-theme-accent-text-color);
+
+    & span {
+        font-weight: 400;
+        font-size: 13px;
+        color: var(--tg-theme-text-color);
+    };
+  }
+
+}

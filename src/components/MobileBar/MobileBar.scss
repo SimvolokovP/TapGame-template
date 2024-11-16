@@ -1,0 +1,35 @@
+.mobile-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--tg-theme-secondary-bg-color);
+  padding: 15px 20px 25px 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: 0 14px;
+  z-index: 5;
+  max-width: 1200px;
+  text-align: center;
+
+  &__list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+    gap: 4px;
+    text-transform: uppercase;
+    font-weight: 500;
+
+    &.active {
+      color: var(--tg-theme-link-color);
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.sub-task {
+    background-color: var(--tg-theme-link-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--tg-theme-text-color);
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 8px;
+    width: 180px;
+}

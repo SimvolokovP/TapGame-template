@@ -1,0 +1,19 @@
+import { FC } from "react";
+import { RiCoinsLine } from "react-icons/ri";
+
+import "./ScoreBlock.scss";
+
+interface ScoreBlockProps {
+  score: number;
+}
+
+const ScoreBlock: FC<ScoreBlockProps> = ({ score }) => {
+  return (
+    <div className="score-block">
+      <RiCoinsLine color="var(--tg-theme-accent-text-color)" size={32} />
+      <span className="score-block__text">{score}</span>
+    </div>
+  );
+};
+
+export default ScoreBlock;

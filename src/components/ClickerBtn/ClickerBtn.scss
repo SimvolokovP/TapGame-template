@@ -1,0 +1,25 @@
+.clicker-btn {
+  padding-top: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__button {
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    border: 8px solid var(--tg-theme-accent-text-color);
+    transition: transform 0.08s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: block;
+    cursor: pointer;
+    background-color: var(--tg-theme-secondary-bg-color);
+  }
+
+  &__image {
+    width: 150px;
+    fill: var(--tg-theme-accent-text-color);
+  }
+}
