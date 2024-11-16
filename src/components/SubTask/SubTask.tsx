@@ -15,12 +15,16 @@ const SubTask = () => {
 
   const handleCheckSubscription = useCallback(async () => {
     setIsLoading(true);
+    let message = "";
     try {
       if (tgUser) {
-        const { message, isSub } = await checkSubscriptionStatus(tgUser);
+        const { isSub, status } = await checkSubscriptionStatus(tgUser);
 
         if (!isSub) {
+          message = "Sorry, you are not subscribed to our channel.";
           openTelegramLink(`https://t.me/+3CTsGMpjhR5hOTky`);
+        } else {
+          message = `You are the ${status} of the channel.`;
         }
 
         notify(message);
@@ -37,7 +41,7 @@ const SubTask = () => {
       <div>
         <button className="sub-task" onClick={handleCheckSubscription}>
           <BiTask size={24} />
-          {isLoading ? "loading" : "Check Subscription"}
+          {isLoading ? "loading.." : "Check Subscription"}
         </button>
       </div>
       <ToastContainer />

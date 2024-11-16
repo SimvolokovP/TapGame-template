@@ -20,17 +20,10 @@ export const checkSubscriptionStatus = async (tgUser: ITgUser) => {
     }
 
     const status = dataResp.result.status;
-    let message = "";
 
     const isSub = ["member", "administrator", "creator"].includes(status);
 
-    if (isSub) {
-      message = `You are the ${status} of the channel.`;
-    } else {
-      message = `Sorry, you are not subscribed to our channel.`;
-    }
-
-    return { message, status, isSub };
+    return { status, isSub };
   } catch (error) {
     console.error("Error:", error);
     throw new Error("An error has occurred. Try again later");
