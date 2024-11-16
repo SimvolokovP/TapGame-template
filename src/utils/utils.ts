@@ -1,34 +1,6 @@
-import {
-  RiBankCardLine,
-  RiGroupLine,
-  RiHome2Line,
-  RiTaskLine,
-} from "react-icons/ri";
+import { ITgUser } from "../models/ITgUser";
 
-export const navLinks = [
-  {
-    to: "/",
-    text: "home",
-    icon: RiHome2Line,
-  },
-  {
-    to: "/tasks",
-    text: "tasks",
-    icon: RiTaskLine,
-  },
-  {
-    to: "/team",
-    text: "team",
-    icon: RiGroupLine,
-  },
-  // {
-  //   to: "/team",
-  //   text: "wallet",
-  //   icon: RiBankCardLine,
-  // },
-];
-
-export const getUsername = (tgUser) => {
+export const getUsername = (tgUser: ITgUser) => {
   if (tgUser) {
     return (
       tgUser?.username ||

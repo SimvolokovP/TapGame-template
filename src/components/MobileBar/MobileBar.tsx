@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
-import { navLinks } from "../../utils/utils";
 import "./MobileBar.scss";
+import { routerLinks } from "../../router/routerLinks";
 
 const MobileBar = () => {
   return (
     <div className="container">
       <div className="mobile-bar">
         <ul className="list-reset mobile-bar__list">
-          {navLinks.map((link) => (
+          {routerLinks.map((link) => (
             <li key={link.to} className="mobile-bar__list--item">
               <NavLink
                 className={(e) =>
