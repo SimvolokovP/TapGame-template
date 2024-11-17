@@ -13,7 +13,7 @@ const HomePage = () => {
   const [totalCoins, setTotalCoins] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const { user, updateUserScore, status } = useUser();
-  const [energy, setEnergy] = useState<number>(2);
+  const [energy, setEnergy] = useState<number>(50);
 
   useEffect(() => {
     const fetchCoins = async () => {

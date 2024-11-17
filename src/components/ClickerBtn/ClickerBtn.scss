@@ -8,20 +8,19 @@
 		width: 280px;
 		height: 280px;
 		border-radius: 50%;
-		/* border: 8px solid var(--tg-theme-accent-text-color); */
+		border: 8px solid var(--tg-theme-accent-text-color); 
 		transition: transform 0.08s ease-in-out;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		display: block;
 		cursor: pointer;
-		/* background-color: var(--tg-theme-secondary-bg-color); */
+		background-color: yellow;
 	}
 
 	&__image {
 		height: 150px;
     width: 150px;  
-    /* fill: var(--tg-theme-text-color);  */
     user-select: none;
     -webkit-user-drag: none; 
     -moz-user-select: none;  
@@ -35,9 +34,10 @@
 .text-animation {
 	position: absolute;
 	font-size: 55px;
-	color: var(--tg-theme-accent-text-color);
+	color: white;
+	text-shadow: 0 0 10px rgba(0, 0, 0, 1);
 	transform: translate(-50%, -100%);
-	animation: fadeUp 1s forwards;
+	animation: fadeUp 1.5s forwards;
 	pointer-events: none;
 }
 
@@ -46,8 +46,11 @@
 		opacity: 1;
 		transform: translate(-50%, -100%);
 	}
+	
 	100% {
 		opacity: 0;
 		transform: translate(-50%, -300%);
 	}
 }
+
+

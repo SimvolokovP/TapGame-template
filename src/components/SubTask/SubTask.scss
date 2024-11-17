@@ -1,9 +1,9 @@
 .sub-task {
-    /* background-color: var(--tg-theme-link-color); */
+    background-color: var(--tg-theme-link-color); 
+    color: white;
     display: flex;
     align-items: center;
     gap: 8px;
-    /* color: var(--tg-theme-text-color); */
     font-size: 20px;
     border: none;
     cursor: pointer;
