@@ -112,11 +112,19 @@ const HomePage = () => {
           {error && <div className="error-message">{error}</div>}
           <div
             style={isActive ? { opacity: 0.8 } : { opacity: 0 }}
-            className="home-page__blur home-page__blur--1"
+            className={
+              isActive
+                ? "home-page__blur home-page__blur--1 home-page__active"
+                : "home-page__blur home-page__blur--1"
+            }
           ></div>
           <div
             style={isActive ? { opacity: 0.8 } : { opacity: 0 }}
-            className="home-page__blur home-page__blur--2"
+            className={
+              isActive
+                ? "home-page__blur home-page__blur--2 home-page__active"
+                : "home-page__blur home-page__blur--2"
+            }
           ></div>
 
           

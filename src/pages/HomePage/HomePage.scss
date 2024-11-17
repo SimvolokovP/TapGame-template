@@ -5,7 +5,7 @@
     height: 100%;
     width: 100%;
     z-index: -1;
-
+    opacity: 0;
     background-size: cover;
     width: 442px;
     height: 166px;
@@ -13,6 +13,10 @@
     transform: rotate(25deg);
     filter: blur(40px);
     transition: opacity 0.3s ease-in-out;
+
+    &--active {
+      opacity: 0.8;
+    }
 
     &--1 {
       top: 60px;
@@ -23,7 +27,11 @@
     &--2 {
       bottom: 20px;
       right: -300px;
-      background: linear-gradient(105deg, var(--tg-theme-accent-text-color) 3.21%, #fbe3b059 91.45%);
+      background: linear-gradient(
+        105deg,
+        var(--tg-theme-accent-text-color) 3.21%,
+        #fbe3b059 91.45%
+      );
     }
   }
 }
