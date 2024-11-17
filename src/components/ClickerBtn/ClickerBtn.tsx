@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import './ClickerBtn.scss'
+import { hapticFeedback } from '@telegram-apps/sdk'
 
 interface ClickerBtnProps {
 	increaseScore: () => void
@@ -41,6 +42,7 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
 
 	const [counter, setCounter] = useState(0)
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    hapticFeedback.impactOccurred('soft')
 		const rect = event.currentTarget.getBoundingClientRect()
 		const offsetX = event.clientX - rect.left - rect.width / 2
 		const offsetY = event.clientY - rect.top - rect.height / 2
