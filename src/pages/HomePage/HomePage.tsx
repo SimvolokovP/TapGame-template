@@ -1,5 +1,5 @@
 import "./HomePage.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ClickerBtn from "../../components/ClickerBtn/ClickerBtn";
 import Greeting from "../../components/Greeting/Greeting";
 import ScoreBlock from "../../components/ScoreBlock/ScoreBlock";
@@ -11,7 +11,7 @@ const HomePage = () => {
   const [localCoins, setLocalCoins] = useState<number>(0);
   const [totalCoins, setTotalCoins] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
-  const { user, updateUserScore } = useUser();
+  const { user, updateUserScore, status } = useUser();
   const [energy, setEnergy] = useState<number>(2);
 
   useEffect(() => {
@@ -27,7 +27,9 @@ const HomePage = () => {
   }, [user]);
 
   useEffect(() => {
+    console.log("use effect start: " + localCoins);
     const updateScore = async () => {
+      console.log("loc" + localCoins);
       if (localCoins > 0) {
         const newScore = totalCoins + localCoins;
         try {
@@ -42,16 +44,17 @@ const HomePage = () => {
       }
     };
 
-    setInterval(() => {
+    const interval = setInterval(() => {
       updateScore();
-    }, 5000);
-  }, [localCoins, totalCoins, updateUserScore]);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [localCoins, totalCoins]);
 
   const increaseScore = () => {
     if (energy > 0) {
       setLocalCoins((prev) => {
         const newCoins = prev + 1;
-        console.log("Increased localCoins:", newCoins);
         return newCoins;
       });
     }
@@ -86,15 +89,21 @@ const HomePage = () => {
 
   return (
     <div className="container home-page">
-      <Greeting />
-      <EnergyBlock energy={energy} increaseEnergy={increaseEnergy} />
-      <ClickerBtn
-        increaseScore={increaseScore}
-        decreaseEnergy={decreaseEnergy}
-        handleSetMessages={handleSetMessages}
-      />
-      <ScoreBlock score={totalCoins + localCoins} />
-      {error && <div className="error-message">{error}</div>}
+      {status.loading ? (
+        <div>load..</div>
+      ) : (
+        <>
+          <Greeting />
+          <EnergyBlock energy={energy} increaseEnergy={increaseEnergy} />
+          <ClickerBtn
+            increaseScore={increaseScore}
+            decreaseEnergy={decreaseEnergy}
+            handleSetMessages={handleSetMessages}
+          />
+          <ScoreBlock score={totalCoins + localCoins} />
+          {error && <div className="error-message">{error}</div>}
+        </>
+      )}
     </div>
   );
 };

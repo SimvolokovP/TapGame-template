@@ -38,11 +38,11 @@ const useUser = () => {
     }
 
     clearStatus();
-    setStatus((prev) => ({ ...prev, loading: true }));
+    // setStatus((prev) => ({ ...prev, loading: true }));
 
     try {
       const updatedUser = await UserService.updateScore(user.tg_id, newScore);
-      setUser(updatedUser); 
+      setUser(updatedUser);
     } catch (err: any) {
       setStatus((prev) => ({ ...prev, error: err.message }));
     } finally {
