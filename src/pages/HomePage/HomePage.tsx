@@ -1,3 +1,4 @@
+import './HomePage.scss'
 import { useState } from "react";
 import ClickerBtn from "../../components/ClickerBtn/ClickerBtn";
 import Greeting from "../../components/Greeting/Greeting";
@@ -11,7 +12,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container home-page">
       <Greeting />
       <ClickerBtn increaseScore={increaseScore} />
       <ScoreBlock score={testScore} />

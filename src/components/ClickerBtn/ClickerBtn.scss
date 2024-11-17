@@ -21,5 +21,26 @@
   &__image {
     width: 150px;
     fill: var(--tg-theme-accent-text-color);
+    pointer-events: none;
   }
 }
+
+.text-animation {  
+  position: absolute;  
+  font-size: 36px; 
+  color: var(--tg-theme-accent-text-color); 
+  transform: translate(-50%, -100%);  
+  animation: fadeUp 1s forwards;  
+  pointer-events: none;
+}  
+
+@keyframes fadeUp {  
+  0% {  
+    opacity: 1;  
+    transform: translate(-50%, -100%);  
+  }  
+  100% {  
+    opacity: 0;  
+    transform: translate(-50%, -150%);  
+  }  
+}  

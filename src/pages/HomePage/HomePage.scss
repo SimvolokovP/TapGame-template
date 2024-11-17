@@ -1,0 +1,18 @@
+.home-page {
+	&::before {
+		position: fixed;
+    content: "";
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+		top: 153px;
+    left: -170px;
+    background: linear-gradient(105deg, #fbba40 3.21%, #fbe3b059 91.45%);
+    background-size: cover;
+    width: 442px;
+    height: 166px;
+    border-radius: 50%;
+    transform: rotate(25deg);
+    filter: blur(40px);
+	}
+}
