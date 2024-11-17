@@ -59,7 +59,7 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
       >
         <img
           className="clicker-btn__image"
-          src="/batman.svg"
+          src="/batman2.svg"
           alt="batman"
           draggable={false}
         />
