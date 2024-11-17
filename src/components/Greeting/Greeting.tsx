@@ -11,7 +11,7 @@ const Greeting:FC = () => {
     <div className="greeting container">
       <GiBatMask size={32} />
       <h1 className="greeting__title">
-        {getUsername(tgUser)}! <span>Welcome back</span>
+        {getUsername(tgUser)} <span>Welcome back</span>
       </h1>
     </div>
   );
