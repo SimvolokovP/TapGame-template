@@ -1,57 +1,111 @@
-import './HomePage.scss'
-import { useState } from 'react'
-import ClickerBtn from '../../components/ClickerBtn/ClickerBtn'
-import Greeting from '../../components/Greeting/Greeting'
-import ScoreBlock from '../../components/ScoreBlock/ScoreBlock'
-import EnergyBlock from '../../components/EnergyBlock/EnergyBlock'
-import { MAX_ENERGY } from '../../utils/MAX_ENERGY'
+import "./HomePage.scss";
+import { useEffect, useState } from "react";
+import ClickerBtn from "../../components/ClickerBtn/ClickerBtn";
+import Greeting from "../../components/Greeting/Greeting";
+import ScoreBlock from "../../components/ScoreBlock/ScoreBlock";
+import EnergyBlock from "../../components/EnergyBlock/EnergyBlock";
+import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
+import useUser from "../../hooks/user/useUser";
 
 const HomePage = () => {
-	const [testScore, setTestScore] = useState<number>(0)
-	const [energy, setEnergy] = useState<number>(25)
+  const [localCoins, setLocalCoins] = useState<number>(0);
+  const [totalCoins, setTotalCoins] = useState<number>(0);
+  const [error, setError] = useState<string | null>(null);
+  const { user, updateUserScore, status } = useUser();
+  const [energy, setEnergy] = useState<number>(2);
 
-	const increaseScore = () => {
-		if (energy > 0) {
-			setTestScore(testScore => testScore + 1)
-		}
-	}
+  useEffect(() => {
+    const fetchCoins = async () => {
+      if (user) {
+        setTotalCoins(user?.score);
+      } else {
+        setTotalCoins(0);
+      }
+    };
 
-	const decreaseEnergy = () => {
-		if (energy > 0) {
-			setEnergy(energy => energy - 1)
-		}
-	}
+    fetchCoins();
+  }, [user]);
 
-	const handleSetMessages = (
-		setMessages: React.Dispatch<
-			React.SetStateAction<{ id: number; x: number; y: number }[]>
-		>,
-		counter: number,
-		event: React.MouseEvent<HTMLButtonElement>
-	) => {
-		if(energy > 0) {
-      setMessages(prev => [...prev, { id: counter, x: event.clientX, y: event.clientY }])
+  useEffect(() => {
+    console.log("use effect start: " + localCoins);
+    const updateScore = async () => {
+      console.log("loc" + localCoins);
+      if (localCoins > 0) {
+        const newScore = totalCoins + localCoins;
+        try {
+          console.log("update!");
+          await updateUserScore(newScore);
+          setTotalCoins(newScore);
+          setLocalCoins(0);
+        } catch (error) {
+          console.error("Error updating coins:", error);
+          setError("Ошибка обновления счета. Пожалуйста, попробуйте еще раз.");
+        }
+      }
+    };
+
+    const interval = setInterval(() => {
+      updateScore();
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [localCoins, totalCoins]);
+
+  const increaseScore = () => {
+    if (energy > 0) {
+      setLocalCoins((prev) => {
+        const newCoins = prev + 1;
+        return newCoins;
+      });
     }
-	}
+  };
 
-	const increaseEnergy = () => {
-		if (energy < MAX_ENERGY) {
-			setEnergy(energy => energy + 1)
-		}
-	}
+  const decreaseEnergy = () => {
+    if (energy > 0) {
+      setEnergy((prev) => prev - 1);
+    }
+  };
 
-	return (
-		<div className='container home-page'>
-			<Greeting />
-			<EnergyBlock energy={energy} increaseEnergy={increaseEnergy} />
-			<ClickerBtn
-				increaseScore={increaseScore}
-				decreaseEnergy={decreaseEnergy}
-        handleSetMessages={handleSetMessages}
-			/>
-			<ScoreBlock score={testScore} />
-		</div>
-	)
-}
+  const handleSetMessages = (
+    setMessages: React.Dispatch<
+      React.SetStateAction<{ id: number; x: number; y: number }[]>
+    >,
+    counter: number,
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    if (energy > 0) {
+      setMessages((prev) => [
+        ...prev,
+        { id: counter, x: event.clientX, y: event.clientY },
+      ]);
+    }
+  };
 
-export default HomePage
+  const increaseEnergy = () => {
+    if (energy < MAX_ENERGY) {
+      setEnergy((prev) => prev + 1);
+    }
+  };
+
+  return (
+    <div className="container home-page">
+      {status.loading ? (
+        <div>load..</div>
+      ) : (
+        <>
+          <Greeting />
+          <EnergyBlock energy={energy} increaseEnergy={increaseEnergy} />
+          <ClickerBtn
+            increaseScore={increaseScore}
+            decreaseEnergy={decreaseEnergy}
+            handleSetMessages={handleSetMessages}
+          />
+          <ScoreBlock score={totalCoins + localCoins} />
+          {error && <div className="error-message">{error}</div>}
+        </>
+      )}
+    </div>
+  );
+};
+
+export default HomePage;
