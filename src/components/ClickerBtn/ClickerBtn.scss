@@ -1,29 +1,34 @@
 .clicker-btn {
-	padding-top: 120px;
+	padding-top: 80px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
 	&__button {
-		width: 210px;
-		height: 210px;
+		width: 280px;
+		height: 280px;
 		border-radius: 50%;
-		border: 8px solid var(--tg-theme-accent-text-color);
+		/* border: 8px solid var(--tg-theme-accent-text-color); */
 		transition: transform 0.08s ease-in-out;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		display: block;
 		cursor: pointer;
-		background-color: var(--tg-theme-secondary-bg-color);
+		/* background-color: var(--tg-theme-secondary-bg-color); */
 	}
 
 	&__image {
-		width: 150px;
-		fill: var(--tg-theme-accent-text-color);
-		user-select: none;
-		-webkit-user-drag: none;
-		pointer-events: none;
+		height: 150px;
+    width: 150px;  
+    /* fill: var(--tg-theme-text-color);  */
+    user-select: none;
+    -webkit-user-drag: none; 
+    -moz-user-select: none;  
+    -ms-user-select: none; 
+    pointer-events: none; 
+    touch-action: none;  
+
 	}
 }
 
@@ -43,6 +48,6 @@
 	}
 	100% {
 		opacity: 0;
-		transform: translate(-50%, -150%);
+		transform: translate(-50%, -300%);
 	}
 }
