@@ -6,6 +6,7 @@ import ScoreBlock from "../../components/ScoreBlock/ScoreBlock";
 import EnergyBlock from "../../components/EnergyBlock/EnergyBlock";
 import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
 import useUser from "../../hooks/user/useUser";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 
 const HomePage = () => {
   const [localCoins, setLocalCoins] = useState<number>(0);
@@ -90,7 +91,7 @@ const HomePage = () => {
   return (
     <div className="container home-page">
       {status.loading ? (
-        <div>load..</div>
+        <LoadingScreen />
       ) : (
         <>
           <Greeting />
