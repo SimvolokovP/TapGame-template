@@ -1,0 +1,10 @@
+.energy {
+	display: flex;
+	justify-content: flex-end;
+
+	&__count {
+		font-size: 25px;
+		color: var(--tg-theme-text-color);
+		margin-right: 20px;
+	}
+}

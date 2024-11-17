@@ -1,46 +1,48 @@
 .clicker-btn {
-  padding-top: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	padding-top: 120px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-  &__button {
-    width: 210px;
-    height: 210px;
-    border-radius: 50%;
-    border: 8px solid var(--tg-theme-accent-text-color);
-    transition: transform 0.08s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    display: block;
-    cursor: pointer;
-    background-color: var(--tg-theme-secondary-bg-color);
-  }
+	&__button {
+		width: 210px;
+		height: 210px;
+		border-radius: 50%;
+		border: 8px solid var(--tg-theme-accent-text-color);
+		transition: transform 0.08s ease-in-out;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		display: block;
+		cursor: pointer;
+		background-color: var(--tg-theme-secondary-bg-color);
+	}
 
-  &__image {
-    width: 150px;
-    fill: var(--tg-theme-accent-text-color);
-    pointer-events: none;
-  }
+	&__image {
+		width: 150px;
+		fill: var(--tg-theme-accent-text-color);
+		user-select: none;
+		-webkit-user-drag: none;
+		pointer-events: none;
+	}
 }
 
-.text-animation {  
-  position: absolute;  
-  font-size: 36px; 
-  color: var(--tg-theme-accent-text-color); 
-  transform: translate(-50%, -100%);  
-  animation: fadeUp 1s forwards;  
-  pointer-events: none;
-}  
+.text-animation {
+	position: absolute;
+	font-size: 55px;
+	color: var(--tg-theme-accent-text-color);
+	transform: translate(-50%, -100%);
+	animation: fadeUp 1s forwards;
+	pointer-events: none;
+}
 
-@keyframes fadeUp {  
-  0% {  
-    opacity: 1;  
-    transform: translate(-50%, -100%);  
-  }  
-  100% {  
-    opacity: 0;  
-    transform: translate(-50%, -150%);  
-  }  
-}  
+@keyframes fadeUp {
+	0% {
+		opacity: 1;
+		transform: translate(-50%, -100%);
+	}
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -150%);
+	}
+}
