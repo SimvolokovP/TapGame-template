@@ -80,24 +80,22 @@ img {
   cursor: pointer;
   border: none;
   outline: none;
-  /* background-color: var(--tg-theme-accent-text-color); */
   width: 100%;
-  /* color: var(--tg-theme-text-color); */
   height: 32px;
   border-radius: 8px;
+  background-color: var(--tg-theme-link-color);
+  color: white;
 }
 
 .Toastify__toast {
-  /* background-color: var(--tg-theme-secondary-bg-color) !important; */
-  /* color: var(--tg-theme-text-color) !important; */
+  background-color: var(--tg-theme-secondary-bg-color) !important;
 }
 
 .Toastify__close-button {
-  /* color: var(--tg-theme-text-color) !important; */
   opacity: 1 !important;
 }
 
 .Toastify__progress-bar-theme--light,
 .Toastify__progress-bar--bg {
-  /* background: var(--tg-theme-link-color); */
+  background: var(--tg-theme-link-color); 
 }

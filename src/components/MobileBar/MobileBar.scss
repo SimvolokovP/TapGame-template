@@ -4,16 +4,14 @@
   bottom: 0;
   left: 0;
   right: 0;
-  /* background-color: var(--tg-theme-secondary-bg-color); */
   padding: 15px 20px 25px 20px;
-  background-color: black;
-  /* padding: 15px 20px; */
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin: 0 14px;
   z-index: 5;
   max-width: 1200px;
   text-align: center;
+  background: linear-gradient(180deg, #616ce8, #08132d);
 
   &__list {
     display: flex;
