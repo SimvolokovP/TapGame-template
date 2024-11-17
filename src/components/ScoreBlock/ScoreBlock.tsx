@@ -7,10 +7,12 @@ interface ScoreBlockProps {
   score: number;
 }
 
+// var(--tg-theme-accent-text-color)
+
 const ScoreBlock: FC<ScoreBlockProps> = ({ score }) => {
   return (
     <div className="score-block">
-      <RiCoinsLine color="var(--tg-theme-accent-text-color)" size={32} />
+      <RiCoinsLine color="" size={32} />
       <span className="score-block__text">{score}</span>
     </div>
   );

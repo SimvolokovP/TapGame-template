@@ -1,5 +1,6 @@
 import { FC, useState } from 'react'
 import './ClickerBtn.scss'
+import BatmanIcon from '../BatmanIcon/BatmanIcon'
 
 interface ClickerBtnProps {
 	increaseScore: () => void
@@ -51,8 +52,13 @@ const ClickerBtn: FC<ClickerBtnProps> = ({ increaseScore, decreaseEnergy, handle
 				onClick={handleClick}
 				style={{ transform }}
 			>
-				<img className='clicker-btn__image' src='/batman.svg' alt='batman' draggable={false} />
+				
+				
+
+				<BatmanIcon className='clicker-btn__image'/>
 			</button>
+
+			
 
       {messages.map(({ id, x, y }) => (  
         <div   

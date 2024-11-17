@@ -8,7 +8,7 @@ import { MAX_ENERGY } from '../../utils/MAX_ENERGY'
 
 const HomePage = () => {
 	const [testScore, setTestScore] = useState<number>(0)
-	const [energy, setEnergy] = useState<number>(2)
+	const [energy, setEnergy] = useState<number>(25)
 
 	const increaseScore = () => {
 		if (energy > 0) {
