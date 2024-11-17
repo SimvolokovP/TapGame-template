@@ -14,7 +14,11 @@ interface ClickerBtnProps {
 	) => void
 }
 
-const ClickerBtn: FC<ClickerBtnProps> = ({ increaseScore, decreaseEnergy, handleSetMessages }) => {
+const ClickerBtn: FC<ClickerBtnProps> = ({
+	increaseScore,
+	decreaseEnergy,
+	handleSetMessages,
+}) => {
 	const [transform, setTransform] = useState(
 		'perspective(282px) rotateX(0deg) rotateY(0deg)'
 	)
@@ -22,7 +26,7 @@ const ClickerBtn: FC<ClickerBtnProps> = ({ increaseScore, decreaseEnergy, handle
 		{ id: number; x: number; y: number }[]
 	>([])
 
-  const [counter, setCounter] = useState(0); 
+	const [counter, setCounter] = useState(0)
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		const rect = event.currentTarget.getBoundingClientRect()
 		const offsetX = event.clientX - rect.left - rect.width / 2
@@ -33,10 +37,10 @@ const ClickerBtn: FC<ClickerBtnProps> = ({ increaseScore, decreaseEnergy, handle
 		const tiltY = (offsetX / (rect.width / 2)) * DEG
 
 		setTransform(`perspective(282px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`)
-		
+
 		increaseScore()
 		decreaseEnergy()
- 
+
 		setCounter(counter + 1)
 		handleSetMessages(setMessages, counter, event)
 
@@ -52,23 +56,15 @@ const ClickerBtn: FC<ClickerBtnProps> = ({ increaseScore, decreaseEnergy, handle
 				onClick={handleClick}
 				style={{ transform }}
 			>
-				
-				
-
-				<BatmanIcon className='clicker-btn__image'/>
+				<BatmanIcon className='clicker-btn__image' />
+				{/* <img src="/test-2.jpg" width={220} height={220} alt="" /> */}
 			</button>
 
-			
-
-      {messages.map(({ id, x, y }) => (  
-        <div   
-          key={id}   
-          className="text-animation"   
-          style={{ left: x, top: y }}   
-        >  
-          +1  
-        </div>  
-      ))}  
+			{messages.map(({ id, x, y }) => (
+				<div key={id} className='text-animation' style={{ left: x, top: y }}>
+					+1
+				</div>
+			))}
 		</div>
 	)
 }

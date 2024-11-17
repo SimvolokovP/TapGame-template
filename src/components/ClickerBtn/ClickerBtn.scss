@@ -1,12 +1,12 @@
 .clicker-btn {
-	padding-top: 100px;
+	padding-top: 80px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
 	&__button {
-		width: 210px;
-		height: 210px;
+		width: 280px;
+		height: 280px;
 		border-radius: 50%;
 		/* border: 8px solid var(--tg-theme-accent-text-color); */
 		transition: transform 0.08s ease-in-out;
@@ -48,6 +48,6 @@
 	}
 	100% {
 		opacity: 0;
-		transform: translate(-50%, -150%);
+		transform: translate(-50%, -300%);
 	}
 }
