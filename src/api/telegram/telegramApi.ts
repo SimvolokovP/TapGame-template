@@ -1,13 +1,21 @@
 import { ITgUser } from "../../models/ITgUser";
 
-export const checkSubscriptionStatus = async (tgUser: ITgUser) => {
+export const checkSubscriptionStatus = async (
+  tgUser: ITgUser,
+  chat: string
+) => {
   try {
+    let formattedChat = chat;
+    if (!chat.startsWith("@") && !chat.startsWith("-100")) {
+      formattedChat = "@" + chat;
+    }
+
+    console.log(formattedChat);
+
     const response = await fetch(
       `https://api.telegram.org/bot${
         import.meta.env.VITE_TG_TOKEN
-      }/getChatMember?chat_id=${import.meta.env.VITE_CHAT_ID}&user_id=${
-        tgUser?.id
-      }`
+      }/getChatMember?chat_id=${formattedChat}&user_id=${tgUser?.id}`
     );
     const dataResp = await response.json();
 
