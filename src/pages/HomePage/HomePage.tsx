@@ -8,14 +8,30 @@ import { MAX_ENERGY } from '../../utils/MAX_ENERGY'
 
 const HomePage = () => {
 	const [testScore, setTestScore] = useState<number>(0)
-	const [energy, setEnergy] = useState<number>(500)
+	const [energy, setEnergy] = useState<number>(2)
 
 	const increaseScore = () => {
-		setTestScore(score => score + 1)
+		if (energy > 0) {
+			setTestScore(testScore => testScore + 1)
+		}
 	}
 
 	const decreaseEnergy = () => {
-		setEnergy(energy => energy - 1)
+		if (energy > 0) {
+			setEnergy(energy => energy - 1)
+		}
+	}
+
+	const handleSetMessages = (
+		setMessages: React.Dispatch<
+			React.SetStateAction<{ id: number; x: number; y: number }[]>
+		>,
+		counter: number,
+		event: React.MouseEvent<HTMLButtonElement>
+	) => {
+		if(energy > 0) {
+      setMessages(prev => [...prev, { id: counter, x: event.clientX, y: event.clientY }])
+    }
 	}
 
 	const increaseEnergy = () => {
@@ -31,6 +47,7 @@ const HomePage = () => {
 			<ClickerBtn
 				increaseScore={increaseScore}
 				decreaseEnergy={decreaseEnergy}
+        handleSetMessages={handleSetMessages}
 			/>
 			<ScoreBlock score={testScore} />
 		</div>

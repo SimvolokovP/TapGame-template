@@ -4,9 +4,16 @@ import './ClickerBtn.scss'
 interface ClickerBtnProps {
 	increaseScore: () => void
 	decreaseEnergy: () => void
+	handleSetMessages: (
+		setMessages: React.Dispatch<
+			React.SetStateAction<{ id: number; x: number; y: number }[]>
+		>,
+		counter: number,
+		event: React.MouseEvent<HTMLButtonElement>
+	) => void
 }
 
-const ClickerBtn: FC<ClickerBtnProps> = ({ increaseScore, decreaseEnergy }) => {
+const ClickerBtn: FC<ClickerBtnProps> = ({ increaseScore, decreaseEnergy, handleSetMessages }) => {
 	const [transform, setTransform] = useState(
 		'perspective(282px) rotateX(0deg) rotateY(0deg)'
 	)
@@ -25,10 +32,12 @@ const ClickerBtn: FC<ClickerBtnProps> = ({ increaseScore, decreaseEnergy }) => {
 		const tiltY = (offsetX / (rect.width / 2)) * DEG
 
 		setTransform(`perspective(282px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`)
+		
 		increaseScore()
 		decreaseEnergy()
-
-    setMessages(prev => [...prev, { id: counter, x: event.clientX, y: event.clientY }]);  
+ 
+		setCounter(counter + 1)
+		handleSetMessages(setMessages, counter, event)
 
 		setTimeout(() => {
 			setTransform('perspective(282px) rotateX(0deg) rotateY(0deg)')

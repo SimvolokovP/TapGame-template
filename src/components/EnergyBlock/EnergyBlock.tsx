@@ -1,8 +1,13 @@
 import './EnergyBlock.scss'
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { MAX_ENERGY } from '../../utils/MAX_ENERGY'
 
-const EnergyBlock = ({ energy, increaseEnergy }) => {
+interface EnergyBlockProps {
+	energy: number
+	increaseEnergy: () => void
+}
+
+const EnergyBlock: FC<EnergyBlockProps> = ({ energy, increaseEnergy }) => {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			increaseEnergy()
