@@ -14,7 +14,7 @@ const HomePage = () => {
   const [totalCoins, setTotalCoins] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
   const { user, updateUserScore, status } = useUser();
-  const [energy, setEnergy] = useState<number>(2);
+  const [energy, setEnergy] = useState<number>(100);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -105,6 +105,9 @@ const HomePage = () => {
             increaseScore={increaseScore}
             decreaseEnergy={decreaseEnergy}
             handleSetMessages={handleSetMessages}
+            isActive={isActive}
+
+            
           />
           <ScoreBlock score={totalCoins + localCoins} />
           {error && <div className="error-message">{error}</div>}

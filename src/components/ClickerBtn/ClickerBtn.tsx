@@ -1,6 +1,5 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import './ClickerBtn.scss'
-import CircleBtn from '../CircleBtn/CircleBtn'
 
 interface ClickerBtnProps {
 	increaseScore: () => void
@@ -12,12 +11,14 @@ interface ClickerBtnProps {
 		counter: number,
 		event: React.MouseEvent<HTMLButtonElement>
 	) => void
+	isActive: boolean
 }
 
 const ClickerBtn: FC<ClickerBtnProps> = ({
 	increaseScore,
 	decreaseEnergy,
 	handleSetMessages,
+	isActive,
 }) => {
 	const [transform, setTransform] = useState(
 		'perspective(282px) rotateX(0deg) rotateY(0deg)'
@@ -25,6 +26,18 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
 	const [messages, setMessages] = useState<
 		{ id: number; x: number; y: number }[]
 	>([])
+
+	const [sleepMessages, setSleepMessages] = useState([])
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			if (!isActive) {
+				setSleepMessages(prev => [...prev, 'Z'])
+			}
+		}, 1000)
+
+		return () => clearInterval(interval)
+	}, [isActive])
 
 	const [counter, setCounter] = useState(0)
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -61,6 +74,28 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
 				</div>
 			</button>
 
+			{/* {!isActive && (
+				<div className='text-animation' style={{ left: '50%', top: '50%' }}>
+					Z
+				</div>
+			)} */}
+
+      {!isActive && sleepMessages.map((message, index) => (
+        <div key={index} className='text-animation' style={{ left: '50%', top: '50%' }}>
+          {message}
+        </div>
+      ))}
+
+			{/* {isActive &&
+				sleepMessages.map((message, index) => (
+					<div
+						key={index}
+						className='text-animation'
+						style={{ left: '50%', top: `50%` }}
+					>
+						{message}
+					</div>
+				))} */}
 
 			{messages.map(({ id, x, y }) => (
 				<div key={id} className='text-animation' style={{ left: x, top: y }}>
