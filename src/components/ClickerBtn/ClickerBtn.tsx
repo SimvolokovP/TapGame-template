@@ -72,7 +72,7 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
 				onClick={handleClick}
 			>
 				<div className='circle-inner'>
-					<img src='/batman2.svg' alt='batman' />
+					<img src='/batman2.svg' alt='batman' draggable={false} />
 				</div>
 			</button>
 
