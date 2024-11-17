@@ -1,18 +1,29 @@
 .home-page {
-	&::before {
-		position: fixed;
+  &__blur {
+    position: fixed;
     content: "";
     height: 100%;
     width: 100%;
     z-index: -1;
-		top: 153px;
-    left: -170px;
-    background: linear-gradient(105deg, #fbba40 3.21%, #fbe3b059 91.45%);
+
     background-size: cover;
     width: 442px;
     height: 166px;
     border-radius: 50%;
     transform: rotate(25deg);
     filter: blur(40px);
-	}
+    transition: opacity 0.3s ease-in-out;
+
+    &--1 {
+      top: 60px;
+      left: -170px;
+      background: linear-gradient(105deg, #fbba40 3.21%, #fbe3b059 91.45%);
+    }
+
+    &--2 {
+      bottom: 20px;
+      right: -300px;
+      background: linear-gradient(105deg, var(--tg-theme-accent-text-color) 3.21%, #fbe3b059 91.45%);
+    }
+  }
 }

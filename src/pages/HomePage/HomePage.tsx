@@ -14,6 +14,7 @@ const HomePage = () => {
   const [error, setError] = useState<string | null>(null);
   const { user, updateUserScore, status } = useUser();
   const [energy, setEnergy] = useState<number>(2);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     const fetchCoins = async () => {
@@ -28,6 +29,7 @@ const HomePage = () => {
   }, [user]);
 
   useEffect(() => {
+    setIsActive(true);
     console.log("use effect start: " + localCoins);
     const updateScore = async () => {
       console.log("loc" + localCoins);
@@ -42,6 +44,8 @@ const HomePage = () => {
           console.error("Error updating coins:", error);
           setError("Ошибка обновления счета. Пожалуйста, попробуйте еще раз.");
         }
+      } else {
+        setIsActive(false);
       }
     };
 
@@ -103,6 +107,14 @@ const HomePage = () => {
           />
           <ScoreBlock score={totalCoins + localCoins} />
           {error && <div className="error-message">{error}</div>}
+          <div
+            style={isActive ? { opacity: 0.8 } : { opacity: 0 }}
+            className="home-page__blur home-page__blur--1"
+          ></div>
+          <div
+            style={isActive ? { opacity: 0.8 } : { opacity: 0 }}
+            className="home-page__blur home-page__blur--2"
+          ></div>
         </>
       )}
     </div>

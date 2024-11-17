@@ -1,53 +1,53 @@
 .clicker-btn {
-	padding-top: 80px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  padding-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-	&__button {
-		width: 280px;
-		height: 280px;
-		border-radius: 50%;
-		/* border: 8px solid var(--tg-theme-accent-text-color); */
-		transition: transform 0.08s ease-in-out;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		display: block;
-		cursor: pointer;
-		/* background-color: var(--tg-theme-secondary-bg-color); */
-	}
+  &__button {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    border: 8px solid var(--tg-theme-accent-text-color);
+    transition: transform 0.08s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: block;
+    cursor: pointer;
+    background-color: transparent;
+    /* background-color: var(--tg-theme-secondary-bg-color); */
+  }
 
-	&__image {
-		height: 150px;
-    width: 150px;  
+  &__image {
+    height: 150px;
+    width: 150px;
     /* fill: var(--tg-theme-text-color);  */
     user-select: none;
-    -webkit-user-drag: none; 
-    -moz-user-select: none;  
-    -ms-user-select: none; 
-    pointer-events: none; 
-    touch-action: none;  
-
-	}
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    touch-action: none;
+  }
 }
 
 .text-animation {
-	position: absolute;
-	font-size: 55px;
-	color: var(--tg-theme-accent-text-color);
-	transform: translate(-50%, -100%);
-	animation: fadeUp 1s forwards;
-	pointer-events: none;
+  position: absolute;
+  font-size: 55px;
+  color: var(--tg-theme-accent-text-color);
+  transform: translate(-50%, -100%);
+  animation: fadeUp 1s forwards;
+  pointer-events: none;
 }
 
 @keyframes fadeUp {
-	0% {
-		opacity: 1;
-		transform: translate(-50%, -100%);
-	}
-	100% {
-		opacity: 0;
-		transform: translate(-50%, -300%);
-	}
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -100%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -300%);
+  }
 }
