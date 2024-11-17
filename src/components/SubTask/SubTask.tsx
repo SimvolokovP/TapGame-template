@@ -16,15 +16,17 @@ const SubTask = () => {
   const handleCheckSubscription = useCallback(async () => {
     setIsLoading(true);
     let message = "";
+    const chat = import.meta.env.VITE_CHAT_ID;
     try {
       if (tgUser) {
-        const { isSub, status } = await checkSubscriptionStatus(tgUser);
+        const { isSub, status } = await checkSubscriptionStatus(tgUser, chat);
 
         if (!isSub) {
           message = "Sorry, you are not subscribed to our channel.";
-          openTelegramLink(`https://t.me/+3CTsGMpjhR5hOTky`);
+          openTelegramLink(`https://t.me/${chat}`);
         } else {
           message = `You are the ${status} of the channel.`;
+          //   openTelegramLink(`https://t.me/${chat}`);
         }
 
         notify(message);
