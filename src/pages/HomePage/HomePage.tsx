@@ -7,7 +7,6 @@ import EnergyBlock from "../../components/EnergyBlock/EnergyBlock";
 import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
 import useUser from "../../hooks/user/useUser";
 import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
-import Coin from '../../components/Coin/Coin'
 
 const HomePage = () => {
   const [localCoins, setLocalCoins] = useState<number>(0);

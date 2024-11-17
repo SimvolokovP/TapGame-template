@@ -74,28 +74,17 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
 				</div>
 			</button>
 
-			{/* {!isActive && (
-				<div className='text-animation' style={{ left: '50%', top: '50%' }}>
-					Z
-				</div>
-			)} */}
-
-      {!isActive && sleepMessages.map((message, index) => (
-        <div key={index} className='text-animation' style={{ left: '50%', top: '50%' }}>
-          {message}
-        </div>
-      ))}
-
-			{/* {isActive &&
+		
+			{!isActive &&
 				sleepMessages.map((message, index) => (
 					<div
 						key={index}
 						className='text-animation'
-						style={{ left: '50%', top: `50%` }}
+						style={{ left: '65%', top: '40%' }}
 					>
 						{message}
 					</div>
-				))} */}
+				))}
 
 			{messages.map(({ id, x, y }) => (
 				<div key={id} className='text-animation' style={{ left: x, top: y }}>
