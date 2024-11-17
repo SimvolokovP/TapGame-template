@@ -7,6 +7,7 @@ import EnergyBlock from "../../components/EnergyBlock/EnergyBlock";
 import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
 import useUser from "../../hooks/user/useUser";
 import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
+import Coin from '../../components/Coin/Coin'
 
 const HomePage = () => {
   const [localCoins, setLocalCoins] = useState<number>(0);
@@ -115,6 +116,8 @@ const HomePage = () => {
             style={isActive ? { opacity: 0.8 } : { opacity: 0 }}
             className="home-page__blur home-page__blur--2"
           ></div>
+
+          
         </>
       )}
     </div>

@@ -8,7 +8,8 @@
 		width: 280px;
 		height: 280px;
 		border-radius: 50%;
-		border: 8px solid var(--tg-theme-link-color); 
+		// border: 8px solid var(--tg-theme-link-color); 
+		
 		transition: transform 0.08s ease-in-out;
 		display: flex;
 		align-items: center;
@@ -17,6 +18,8 @@
 		cursor: pointer;
 		background-color: yellow;
 		-webkit-tap-highlight-color: transparent;
+
+		background: linear-gradient(to bottom, #575def, #2027)
 	}
 
 	&__image {

@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import "./ClickerBtn.scss";
+import CircleBtn from '../CircleBtn/CircleBtn'
 
 interface ClickerBtnProps {
   increaseScore: () => void;
@@ -64,6 +65,8 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
           draggable={false}
         />
       </button>
+
+      <CircleBtn/>
 
       {messages.map(({ id, x, y }) => (
         <div key={id} className="text-animation" style={{ left: x, top: y }}>
