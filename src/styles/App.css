@@ -89,10 +89,12 @@ img {
 
 .Toastify__toast {
   background-color: var(--tg-theme-secondary-bg-color) !important;
+  color: #fff;
 }
 
 .Toastify__close-button {
   opacity: 1 !important;
+  color: #fff;
 }
 
 .Toastify__progress-bar-theme--light,
