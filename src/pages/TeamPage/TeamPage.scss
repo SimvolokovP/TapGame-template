@@ -1,0 +1,32 @@
+.team-page {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 125px);
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+    padding-bottom: 20px;
+  }
+
+  &__list {
+    max-height: 100%;
+    min-height: 62px;
+    background-color: #272a2f;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

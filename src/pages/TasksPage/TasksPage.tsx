@@ -9,7 +9,13 @@ const TasksPage = () => {
   return (
     <div className="tasks-page__container container">
       <h3 className="page-title tasks-page__title">Daily Tasks</h3>
-      <SubTask isTaskActive={!user?.isSub} taskAction={completeSubTask} />
+      <div className="tasks-page__tasks">
+        <SubTask isTaskActive={!user?.isSub} taskAction={completeSubTask} />
+      </div>
+      <div className="tasks-page__recent">
+        <h3 className="page-title tasks-page__title">Recent Tasks</h3>
+        <div>- Empty -</div>
+      </div>
     </div>
   );
 };

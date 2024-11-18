@@ -1,3 +1,20 @@
 .tasks-page {
- 
+  &__tasks {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 212px;
+    min-height: 210px;
+    overflow-y: auto;
+  }
+
+  &__recent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
 }
