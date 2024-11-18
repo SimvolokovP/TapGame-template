@@ -50,13 +50,30 @@ const useUser = () => {
     }
   };
 
+  const completeSubTask = async () => {
+    if (!user) {
+      console.error("User is not logged in.");
+      return;
+    }
+    clearStatus();
+
+    try {
+      const updatedUser = await UserService.updateSub(user.tg_id, user.score);
+      setUser(updatedUser);
+    } catch (err: any) {
+      setStatus((prev) => ({ ...prev, error: err.message }));
+    } finally {
+      setStatus((prev) => ({ ...prev, loading: false }));
+    }
+  };
+
   useEffect(() => {
     if (tgUser) {
       logIn(tgUser?.id);
     }
   }, [tgUser?.id]);
 
-  return { user, status, logIn, updateUserScore };
+  return { user, status, logIn, updateUserScore, completeSubTask };
 };
 
 export default useUser;

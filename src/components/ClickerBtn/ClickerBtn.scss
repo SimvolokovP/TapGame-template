@@ -1,11 +1,34 @@
 .clicker-btn {
-	
-	padding-top: 80px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  padding-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-	
+  &__button {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    border: 8px solid var(--tg-theme-link-color);
+    transition: transform 0.08s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: block;
+    cursor: pointer;
+    background-color: yellow;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  &__image {
+    height: 150px;
+    width: 150px;
+    user-select: none;
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+    touch-action: none;
+  }
 }
 
 .text-animation {

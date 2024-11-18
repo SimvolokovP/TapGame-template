@@ -70,4 +70,23 @@ export default class UserService {
 
     return updatedUser;
   }
+
+  static async updateSub(tg_id: number, currentScore: number) {
+    const { data: updatedUser, error } = await supabase
+      .from("users")
+      .update({
+        score: currentScore + 1000,
+        isSub: true,
+      })
+      .eq("tg_id", tg_id)
+      .select("*")
+      .single();
+
+    if (error) {
+      console.error("Update Score Error:", error);
+      throw new Error("Failed to update score.");
+    }
+
+    return updatedUser;
+  }
 }
