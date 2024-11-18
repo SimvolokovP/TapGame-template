@@ -89,4 +89,20 @@ export default class UserService {
 
     return updatedUser;
   }
+
+  static async updateEnergy(tg_id: number, newEnergy: number) {
+    const { data: updatedUser, error } = await supabase
+      .from("users")
+      .update({ energy: newEnergy })
+      .eq("tg_id", tg_id)
+      .select("*")
+      .single();
+
+    if (error) {
+      console.error("Update Energy Error:", error);
+      throw new Error("Failed to update energy.");
+    }
+
+    return updatedUser;
+  }
 }
