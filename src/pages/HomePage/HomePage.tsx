@@ -1,136 +1,140 @@
-import "./HomePage.scss";
-import { useEffect, useState } from "react";
-import ClickerBtn from "../../components/ClickerBtn/ClickerBtn";
-import Greeting from "../../components/Greeting/Greeting";
-import ScoreBlock from "../../components/ScoreBlock/ScoreBlock";
-import EnergyBlock from "../../components/EnergyBlock/EnergyBlock";
-import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
-import useUser from "../../hooks/user/useUser";
-import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
+import { useEffect, useState } from 'react'
+import ClickerBtn from '../../components/ClickerBtn/ClickerBtn'
+import EnergyBlock from '../../components/EnergyBlock/EnergyBlock'
+import Greeting from '../../components/Greeting/Greeting'
+import LoadingScreen from '../../components/LoadingScreen/LoadingScreen'
+import ScoreBlock from '../../components/ScoreBlock/ScoreBlock'
+import useUser from '../../hooks/user/useUser'
+import { MAX_ENERGY } from '../../utils/MAX_ENERGY'
+import './HomePage.scss'
 
 const HomePage = () => {
-  const [localCoins, setLocalCoins] = useState<number>(0);
-  const [totalCoins, setTotalCoins] = useState<number>(0);
-  const [error, setError] = useState<string | null>(null);
-  const { user, updateUserScore, status } = useUser();
-  const [energy, setEnergy] = useState<number>(100);
-  const [isActive, setIsActive] = useState(false);
+	const [localCoins, setLocalCoins] = useState<number>(0)
+	const [totalCoins, setTotalCoins] = useState<number>(0)
+	const [error, setError] = useState<string | null>(null)
+	const { user, updateUserScore, updateUserEnergy, status } = useUser()
 
-  useEffect(() => {
-    const fetchCoins = async () => {
-      if (user) {
-        setTotalCoins(user?.score);
-      } else {
-        setTotalCoins(0);
-      }
-    };
+	const [energy, setEnergy] = useState<number>(100)
+	const [isActive, setIsActive] = useState(false)
 
-    fetchCoins();
-  }, [user]);
+	useEffect(() => {
+		const fetchCoins = async () => {
+			if (user) {
+				setTotalCoins(user?.score)
+			} else {
+				setTotalCoins(0)
+			}
+		}
 
-  useEffect(() => {
-    setIsActive(true);
-    console.log("use effect start: " + localCoins);
-    const updateScore = async () => {
-      console.log("loc" + localCoins);
-      if (localCoins > 0) {
-        const newScore = totalCoins + localCoins;
-        try {
-          console.log("update!");
-          await updateUserScore(newScore);
-          setTotalCoins(newScore);
-          setLocalCoins(0);
-        } catch (error) {
-          console.error("Error updating coins:", error);
-          setError("Ошибка обновления счета. Пожалуйста, попробуйте еще раз.");
-        }
-      } else {
-        setIsActive(false);
-      }
-    };
+		fetchCoins()
+	}, [user])
 
-    const interval = setInterval(() => {
-      updateScore();
-    }, 3000);
+	useEffect(() => {
+		setIsActive(true)
+		console.log('use effect start: ' + localCoins)
+		const updateScore = async () => {
+			console.log('loc' + localCoins)
+			if (localCoins > 0) {
+				const newScore = totalCoins + localCoins
+				try {
+					console.log('update!')
+					await updateUserScore(newScore)
+					setTotalCoins(newScore)
+					setLocalCoins(0)
+				} catch (error) {
+					console.error('Error updating coins:', error)
+					setError('Ошибка обновления счета. Пожалуйста, попробуйте еще раз.')
+				}
+			} else {
+				setIsActive(false)
+			}
+		}
 
-    return () => clearInterval(interval);
-  }, [localCoins, totalCoins]);
+		const interval = setInterval(() => {
+			updateScore()
+		}, 500)
 
-  const increaseScore = () => {
-    if (energy > 0) {
-      setLocalCoins((prev) => {
-        const newCoins = prev + 1;
-        return newCoins;
-      });
-    }
-  };
+		return () => clearInterval(interval)
+	}, [localCoins, totalCoins])
 
-  const decreaseEnergy = () => {
-    if (energy > 0) {
-      setEnergy((prev) => prev - 1);
-    }
-  };
+	const increaseScore = () => {
+		if (energy > 0) {
+			setLocalCoins(prev => {
+				const newCoins = prev + 1
+				return newCoins
+			})
+		}
+	}
 
-  const handleSetMessages = (
-    setMessages: React.Dispatch<
-      React.SetStateAction<{ id: number; x: number; y: number }[]>
-    >,
-    counter: number,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    if (energy > 0) {
-      setMessages((prev) => [
-        ...prev,
-        { id: counter, x: event.clientX, y: event.clientY },
-      ]);
-    }
-  };
+	const decreaseEnergy = async () => {
+		if (energy > 0) {
+			const newEnergy = energy - 1
+			setEnergy(newEnergy)
+			try {
+				await updateUserEnergy(newEnergy)
+			} catch (error) {
+				console.error('Error updating energy:', error)
+				setError('Ошибка обновления энергии. Пожалуйста, попробуйте еще раз.')
+			}
+		}
+	}
 
-  const increaseEnergy = () => {
-    if (energy < MAX_ENERGY) {
-      setEnergy((prev) => prev + 1);
-    }
-  };
+	const handleSetMessages = (
+		setMessages: React.Dispatch<
+			React.SetStateAction<{ id: number; x: number; y: number }[]>
+		>,
+		counter: number,
+		event: React.MouseEvent<HTMLButtonElement>
+	) => {
+		if (energy > 0) {
+			setMessages(prev => [
+				...prev,
+				{ id: counter, x: event.clientX, y: event.clientY },
+			])
+		}
+	}
 
-  return (
-    <div className="container home-page">
-      {status.loading ? (
-        <LoadingScreen />
-      ) : (
-        <>
-          <Greeting />
-          <EnergyBlock energy={energy} increaseEnergy={increaseEnergy} />
-          <ClickerBtn
-            increaseScore={increaseScore}
-            decreaseEnergy={decreaseEnergy}
-            handleSetMessages={handleSetMessages}
-            isActive={isActive}
+	const increaseEnergy = () => {
+		if (energy < MAX_ENERGY) {
+			setEnergy(prev => prev + 1)
+		}
+	}
 
-            
-          />
-          <ScoreBlock score={totalCoins + localCoins} />
-          {error && <div className="error-message">{error}</div>}
-          <div
-            className={
-              isActive
-                ? "home-page__blur--active home-page__blur home-page__blur--1"
-                : "home-page__blur home-page__blur--1"
-            }
-          ></div>
-          <div
-            style={isActive ? { opacity: 0.8 } : { opacity: 0 }}
-            className={
-              isActive
-                ? "home-page__blur--active home-page__blur home-page__blur--2"
-                : "home-page__blur home-page__blur--2"
-            }
-          ></div>
+	return (
+		<div className='container home-page'>
+			{status.loading ? (
+				<LoadingScreen />
+			) : (
+				<>
+					<Greeting />
+					<EnergyBlock energy={energy} increaseEnergy={increaseEnergy} />
+					<ClickerBtn
+						increaseScore={increaseScore}
+						decreaseEnergy={decreaseEnergy}
+						handleSetMessages={handleSetMessages}
+						isActive={isActive}
+					/>
+					<ScoreBlock score={totalCoins + localCoins} />
+					{error && <div className='error-message'>{error}</div>}
+					<div
+						className={
+							isActive
+								? 'home-page__blur--active home-page__blur home-page__blur--1'
+								: 'home-page__blur home-page__blur--1'
+						}
+					></div>
+					<div
+						style={isActive ? { opacity: 0.8 } : { opacity: 0 }}
+						className={
+							isActive
+								? 'home-page__blur--active home-page__blur home-page__blur--2'
+								: 'home-page__blur home-page__blur--2'
+						}
+					></div>
+				</>
+			)}
+		</div>
+	)
+}
 
-          
-        </>
-      )}
-    </div>
-  );
-};
-
-export default HomePage;
+export default HomePage
