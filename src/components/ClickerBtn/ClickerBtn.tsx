@@ -1,77 +1,100 @@
-import { FC, useState } from "react";
-import "./ClickerBtn.scss";
+import { FC, useEffect, useState } from 'react'
+import './ClickerBtn.scss'
+import { hapticFeedback } from '@telegram-apps/sdk'
 
 interface ClickerBtnProps {
-  increaseScore: () => void;
-  decreaseEnergy: () => void;
-  handleSetMessages: (
-    setMessages: React.Dispatch<
-      React.SetStateAction<{ id: number; x: number; y: number }[]>
-    >,
-    counter: number,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => void;
+	increaseScore: () => void
+	decreaseEnergy: () => void
+	handleSetMessages: (
+		setMessages: React.Dispatch<
+			React.SetStateAction<{ id: number; x: number; y: number }[]>
+		>,
+		counter: number,
+		event: React.MouseEvent<HTMLButtonElement>
+	) => void
+	isActive: boolean
 }
 
 const ClickerBtn: FC<ClickerBtnProps> = ({
-  increaseScore,
-  decreaseEnergy,
-  handleSetMessages,
+	increaseScore,
+	decreaseEnergy,
+	handleSetMessages,
+	isActive,
 }) => {
-  const [transform, setTransform] = useState(
-    "perspective(282px) rotateX(0deg) rotateY(0deg)"
-  );
-  const [messages, setMessages] = useState<
-    { id: number; x: number; y: number }[]
-  >([]);
+	const [transform, setTransform] = useState(
+		'perspective(282px) rotateX(0deg) rotateY(0deg)'
+	)
+	const [messages, setMessages] = useState<
+		{ id: number; x: number; y: number }[]
+	>([])
 
-  const [counter, setCounter] = useState(0);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const offsetX = event.clientX - rect.left - rect.width / 2;
-    const offsetY = event.clientY - rect.top - rect.height / 2;
+	const [sleepMessages, setSleepMessages] = useState([])
 
-    const DEG = 10;
-    const tiltX = (offsetY / (rect.height / 2)) * -DEG;
-    const tiltY = (offsetX / (rect.width / 2)) * DEG;
+	useEffect(() => {
+		const interval = setInterval(() => {
+			if (!isActive) {
+				setSleepMessages(prev => [...prev, 'Z'])
+			}
+		}, 1000)
 
-    setTransform(
-      `perspective(282px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`
-    );
+		return () => clearInterval(interval)
+	}, [isActive])
 
-    increaseScore();
-    decreaseEnergy();
+	const [counter, setCounter] = useState(0)
+	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    hapticFeedback.impactOccurred('soft')
+		const rect = event.currentTarget.getBoundingClientRect()
+		const offsetX = event.clientX - rect.left - rect.width / 2
+		const offsetY = event.clientY - rect.top - rect.height / 2
 
-    setCounter(counter + 1);
-    handleSetMessages(setMessages, counter, event);
+		const DEG = 10
+		const tiltX = (offsetY / (rect.height / 2)) * -DEG
+		const tiltY = (offsetX / (rect.width / 2)) * DEG
 
-    setTimeout(() => {
-      setTransform("perspective(282px) rotateX(0deg) rotateY(0deg)");
-    }, 50);
-  };
+		setTransform(`perspective(282px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`)
 
-  return (
-    <div className="clicker-btn">
-      <button
-        className="clicker-btn__button"
-        onClick={handleClick}
-        style={{ transform }}
-      >
-        <img
-          className="clicker-btn__image"
-          src="/batman2.svg"
-          alt="batman"
-          draggable={false}
-        />
-      </button>
+		increaseScore()
+		decreaseEnergy()
 
-      {messages.map(({ id, x, y }) => (
-        <div key={id} className="text-animation" style={{ left: x, top: y }}>
-          +1
-        </div>
-      ))}
-    </div>
-  );
-};
+		setCounter(counter + 1)
+		handleSetMessages(setMessages, counter, event)
 
-export default ClickerBtn;
+		setTimeout(() => {
+			setTransform('perspective(282px) rotateX(0deg) rotateY(0deg)')
+		}, 50)
+	}
+
+	return (
+		<div className='clicker-btn'>
+			<button
+				className='circle-outer'
+				style={{ transform }}
+				onClick={handleClick}
+			>
+				<div className='circle-inner'>
+					<img src='/batman2.svg' alt='batman' draggable={false} />
+				</div>
+			</button>
+
+		
+			{!isActive &&
+				sleepMessages.map((message, index) => (
+					<div
+						key={index}
+						className='text-animation'
+						style={{ left: '65%', top: '40%' }}
+					>
+						{message}
+					</div>
+				))}
+
+			{messages.map(({ id, x, y }) => (
+				<div key={id} className='text-animation' style={{ left: x, top: y }}>
+					+1
+				</div>
+			))}
+		</div>
+	)
+}
+
+export default ClickerBtn

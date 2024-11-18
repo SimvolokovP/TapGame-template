@@ -6,7 +6,6 @@ const LoadingScreen = () => {
       <img
         className="loading-screen__image"
         loading="lazy"
-        key={Math.random()}
         src={"loader.svg"}
         alt="coffee beans"
       />

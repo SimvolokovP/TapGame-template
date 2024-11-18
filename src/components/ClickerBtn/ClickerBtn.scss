@@ -1,34 +1,11 @@
 .clicker-btn {
-  padding-top: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	
+	padding-top: 80px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-  &__button {
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    border: 8px solid var(--tg-theme-link-color);
-    transition: transform 0.08s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    display: block;
-    cursor: pointer;
-    background-color: yellow;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  &__image {
-    height: 150px;
-    width: 150px;
-    user-select: none;
-    -webkit-user-drag: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    pointer-events: none;
-    touch-action: none;
-  }
+	
 }
 
 .text-animation {
@@ -40,6 +17,47 @@
   animation: fadeUp 1.5s forwards;
   pointer-events: none;
 }
+
+.circle-outer {
+	position: relative;
+	border: none;
+	background: linear-gradient(to bottom, #575def, #202731);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 90vw;
+	height: 90vw;
+	max-width: 360px;
+	max-height: 360px;
+	padding: 1rem;
+	border-radius: 9999px;
+	width: 20rem;
+	height: 20rem;
+}
+
+.circle-inner {
+	background: radial-gradient(circle, #4960b2, #282e3e);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 1px 1px #0003;
+	height: 100%;
+	width: 100%;
+	border-radius: 9999px;
+
+	& img {
+		width: 72%;
+		height: 100%;
+
+		user-select: none;
+    -webkit-user-drag: none; 
+    -moz-user-select: none;  
+    -ms-user-select: none; 
+    pointer-events: none; 
+    touch-action: none;  
+	}
+}
+
 
 @keyframes fadeUp {
   0% {

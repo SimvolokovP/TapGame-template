@@ -6,7 +6,7 @@ const TeamPage = () => {
     <div className="container">
       <h3 className="page-title">My Team</h3>
       <ShareBtn />
-      {/* <Clipboard /> */}
+      <Clipboard />
     </div>
   );
 };
