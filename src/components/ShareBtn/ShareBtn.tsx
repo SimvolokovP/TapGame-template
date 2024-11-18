@@ -7,7 +7,7 @@ const ShareBtn: FC = () => {
   const handleInviteFriend = () => {
     if (shareURL.isAvailable()) {
       shareURL(
-        `${import.meta.env.VITE_TG_INVITE_URL}?startapp=${tgUser?.id}`,
+        `${import.meta.env.VITE_TG_INVITE_URL}?start=${tgUser?.id}`,
         "Check out this cool group!"
       );
     }
