@@ -9,15 +9,15 @@ interface EnergyBlockProps {
 }
 
 const EnergyBlock: FC<EnergyBlockProps> = ({ energy, increaseEnergy }) => {
-  useEffect(() => {
-    const interval = setInterval(() => {
-      increaseEnergy();
-    }, 1000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     increaseEnergy();
+  //   }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [energy, increaseEnergy]);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [energy, increaseEnergy]);
 
   return (
     <div className="energy">

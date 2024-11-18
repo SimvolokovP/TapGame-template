@@ -14,8 +14,13 @@ const HomePage = () => {
 	const [error, setError] = useState<string | null>(null)
 	const { user, updateUserScore, updateUserEnergy, status } = useUser()
 
-	const [energy, setEnergy] = useState<number>(100)
+	const [energy, setEnergy] = useState<number | null>(100)
 	const [isActive, setIsActive] = useState(false)
+
+  // console.log(user);
+  // console.log(energy);
+  
+  
 
 	useEffect(() => {
 		const fetchCoins = async () => {
