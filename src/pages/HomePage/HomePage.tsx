@@ -6,7 +6,7 @@ import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 import ScoreBlock from "../../components/ScoreBlock/ScoreBlock";
 import useUser from "../../hooks/user/useUser";
 import "./HomePage.scss";
-import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
+// import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
 
 const HomePage = () => {
   const [localCoins, setLocalCoins] = useState<number>(0);
@@ -15,7 +15,8 @@ const HomePage = () => {
   const { user, updateUserScore, status } = useUser();
 
   const [isActive, setIsActive] = useState(false);
-  const [totalEnergy, setTotalEnergy] = useState<number>(0); // Stay track of total energy
+  const [totalEnergy, setTotalEnergy] = useState<number>(0);
+  const [localEnergy, setLocalEnergy] = useState<number>(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,10 +37,14 @@ const HomePage = () => {
     const updateScore = async () => {
       if (localCoins > 0) {
         const newScore = totalCoins + localCoins;
+        const newEnergy = totalEnergy - localEnergy;
+        console.log(newEnergy, totalEnergy, localEnergy);
         try {
-          await updateUserScore(localCoins);
+          await updateUserScore(newScore, newEnergy);
           setTotalCoins(newScore);
           setLocalCoins(0);
+          setTotalEnergy(newEnergy);
+          setLocalEnergy(0);
         } catch (error) {
           console.error("Error updating coins:", error);
           setError("Ошибка обновления счета. Пожалуйста, попробуйте еще раз.");
@@ -51,18 +56,16 @@ const HomePage = () => {
 
     const interval = setInterval(() => {
       updateScore();
-    }, 400);
+    }, 300);
 
     return () => clearInterval(interval);
   }, [localCoins, totalCoins]);
 
   const increaseScore = () => {
-    // Adding coin only if there's energy left
     if (totalEnergy && totalEnergy > 0) {
       setLocalCoins((prev) => {
         const newCoins = prev + 1;
-        // Decrease energy by 1 each time a score is increased
-        setTotalEnergy((prevEnergy) => (prevEnergy > 0 ? prevEnergy - 1 : 0));
+        setLocalEnergy((prevEnergy) => prevEnergy + 1);
         return newCoins;
       });
     }
@@ -90,11 +93,15 @@ const HomePage = () => {
       ) : (
         <>
           <Greeting />
-          <EnergyBlock energy={totalEnergy > 0 ? totalEnergy : 0} />
+          <EnergyBlock
+            energy={
+              totalEnergy - localEnergy > 0 ? totalEnergy - localEnergy : 0
+            }
+          />
           <ClickerBtn
             increaseScore={increaseScore}
             handleSetMessages={handleSetMessages}
-            isActive={isActive && totalEnergy > 0} // Enable button only if energy > 0
+            isActive={isActive && totalEnergy > 0}
           />
           <ScoreBlock score={totalCoins + localCoins} />
           {error && <div className="error-message">{error}</div>}
@@ -106,7 +113,6 @@ const HomePage = () => {
             }
           ></div>
           <div
-            style={isActive ? { opacity: 0.8 } : { opacity: 0 }}
             className={
               isActive
                 ? "home-page__blur--active home-page__blur home-page__blur--2"

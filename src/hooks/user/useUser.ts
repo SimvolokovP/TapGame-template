@@ -31,7 +31,7 @@ const useUser = () => {
     }
   };
 
-  const updateUserScore = async (newScore: number) => {
+  const updateUserScore = async (newScore: number, newEnergy: number) => {
     if (!user) {
       console.error("User is not logged in.");
       return;
@@ -44,8 +44,7 @@ const useUser = () => {
       const updatedUser = await UserService.updateScore(
         user.tg_id,
         newScore,
-        user.score,
-        user.energy
+        newEnergy
       );
       setUser(updatedUser);
     } catch (err: any) {
@@ -102,6 +101,7 @@ const useUser = () => {
     updateUserScore,
     completeSubTask,
     updateUserEnergy,
+    setUser,
   };
 };
 
