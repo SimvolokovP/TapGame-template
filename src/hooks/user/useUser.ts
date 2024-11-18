@@ -1,54 +1,59 @@
-import { useEffect, useState } from 'react'
-import UserService from '../../api/supabase/userApi'
-import { IUser } from '../../models/IUser'
-import { useTg } from '../telegram/useTg'
+import { useEffect, useState } from "react";
+import UserService from "../../api/supabase/userApi";
+import { IUser } from "../../models/IUser";
+import { useTg } from "../telegram/useTg";
 
 type OperationStatus = {
-	loading: boolean
-	error: string | null
-}
+  loading: boolean;
+  error: string | null;
+};
 const useUser = () => {
-	const [user, setUser] = useState<IUser | null>(null)
-	const [status, setStatus] = useState<OperationStatus>({
-		loading: false,
-		error: null,
-	})
+  const [user, setUser] = useState<IUser | null>(null);
+  const [status, setStatus] = useState<OperationStatus>({
+    loading: false,
+    error: null,
+  });
 
-	const { tgUser } = useTg()
+  const { tgUser } = useTg();
 
-	const clearStatus = () => setStatus({ loading: false, error: null })
+  const clearStatus = () => setStatus({ loading: false, error: null });
 
-	const logIn = async (tg_id: number) => {
-		clearStatus()
-		setStatus(prev => ({ ...prev, loading: true }))
-		try {
-			const loggedInUser = await UserService.logIn(tg_id)
-			setUser(loggedInUser)
-		} catch (err: any) {
-			setStatus(prev => ({ ...prev, error: err.message }))
-		} finally {
-			setStatus(prev => ({ ...prev, loading: false }))
-		}
-	}
+  const logIn = async (tg_id: number) => {
+    clearStatus();
+    setStatus((prev) => ({ ...prev, loading: true }));
+    try {
+      const loggedInUser = await UserService.logIn(tg_id);
+      setUser(loggedInUser);
+    } catch (err: any) {
+      setStatus((prev) => ({ ...prev, error: err.message }));
+    } finally {
+      setStatus((prev) => ({ ...prev, loading: false }));
+    }
+  };
 
-	const updateUserScore = async (newScore: number) => {
-		if (!user) {
-			console.error('User is not logged in.')
-			return
-		}
+  const updateUserScore = async (newScore: number) => {
+    if (!user) {
+      console.error("User is not logged in.");
+      return;
+    }
 
-		clearStatus()
-		// setStatus((prev) => ({ ...prev, loading: true }));
+    clearStatus();
+    // setStatus((prev) => ({ ...prev, loading: true }));
 
-		try {
-			const updatedUser = await UserService.updateScore(user.tg_id, newScore)
-			setUser(updatedUser)
-		} catch (err: any) {
-			setStatus(prev => ({ ...prev, error: err.message }))
-		} finally {
-			setStatus(prev => ({ ...prev, loading: false }))
-		}
-	}
+    try {
+      const updatedUser = await UserService.updateScore(
+        user.tg_id,
+        newScore,
+        user.score,
+        user.energy
+      );
+      setUser(updatedUser);
+    } catch (err: any) {
+      setStatus((prev) => ({ ...prev, error: err.message }));
+    } finally {
+      setStatus((prev) => ({ ...prev, loading: false }));
+    }
+  };
 
   const completeSubTask = async () => {
     if (!user) {
@@ -68,21 +73,21 @@ const useUser = () => {
   };
 
   const updateUserEnergy = async (newEnergy: number) => {
-		if (!user) {
-			console.error('User is not logged in.')
-			return
-		}
+    if (!user) {
+      console.error("User is not logged in.");
+      return;
+    }
 
-		clearStatus()
-		try {
-			const updatedUser = await UserService.updateEnergy(user.tg_id, newEnergy)
-			setUser(updatedUser)
-		} catch (err: any) {
-			setStatus(prev => ({ ...prev, error: err.message }))
-		} finally {
-			setStatus(prev => ({ ...prev, loading: false }))
-		}
-	}
+    clearStatus();
+    try {
+      const updatedUser = await UserService.updateEnergy(user.tg_id, newEnergy);
+      setUser(updatedUser);
+    } catch (err: any) {
+      setStatus((prev) => ({ ...prev, error: err.message }));
+    } finally {
+      setStatus((prev) => ({ ...prev, loading: false }));
+    }
+  };
 
   useEffect(() => {
     if (tgUser) {
@@ -90,8 +95,14 @@ const useUser = () => {
     }
   }, [tgUser?.id]);
 
-  return { user, status, logIn, updateUserScore, completeSubTask, updateUserEnergy };
+  return {
+    user,
+    status,
+    logIn,
+    updateUserScore,
+    completeSubTask,
+    updateUserEnergy,
+  };
 };
-	
 
-export default useUser
+export default useUser;

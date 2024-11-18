@@ -55,10 +55,18 @@ export default class UserService {
     }
   }
 
-  static async updateScore(tg_id: number, newScore: number) {
+  static async updateScore(
+    tg_id: number,
+    newScore: number,
+    currentScore: number,
+    currentEnergy: number
+  ) {
     const { data: updatedUser, error } = await supabase
       .from("users")
-      .update({ score: newScore })
+      .update({
+        score: currentScore + newScore,
+        energy: currentEnergy - newScore,
+      })
       .eq("tg_id", tg_id)
       .select("*")
       .single();

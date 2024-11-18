@@ -4,7 +4,7 @@ import { hapticFeedback } from "@telegram-apps/sdk";
 
 interface ClickerBtnProps {
   increaseScore: () => void;
-  decreaseEnergy: () => void;
+  // decreaseEnergy: () => void;
   handleSetMessages: (
     setMessages: React.Dispatch<
       React.SetStateAction<{ id: number; x: number; y: number }[]>
@@ -17,7 +17,7 @@ interface ClickerBtnProps {
 
 const ClickerBtn: FC<ClickerBtnProps> = ({
   increaseScore,
-  decreaseEnergy,
+  // decreaseEnergy,
   handleSetMessages,
   isActive,
 }) => {
@@ -28,7 +28,7 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
     { id: number; x: number; y: number }[]
   >([]);
 
-  const [sleepMessages, setSleepMessages] = useState([]);
+  const [sleepMessages, setSleepMessages] = useState<string[]>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -56,7 +56,7 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
     );
 
     increaseScore();
-    decreaseEnergy();
+    // decreaseEnergy();
 
     setCounter(counter + 1);
     handleSetMessages(setMessages, counter, event);

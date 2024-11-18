@@ -9,14 +9,12 @@
     font-size: 20px;
     display: flex;
     flex-direction: column;
-    color: var(--tg-theme-accent-text-color); 
+    color: #fbba40;
 
     & span {
-        font-weight: 400;
-        font-size: 13px;
-        color: white;
-    
-    };
+      font-weight: 400;
+      font-size: 13px;
+      color: white;
+    }
   }
-
 }

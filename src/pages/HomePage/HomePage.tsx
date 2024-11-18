@@ -5,43 +5,39 @@ import Greeting from "../../components/Greeting/Greeting";
 import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 import ScoreBlock from "../../components/ScoreBlock/ScoreBlock";
 import useUser from "../../hooks/user/useUser";
-import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
 import "./HomePage.scss";
+import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
 
 const HomePage = () => {
   const [localCoins, setLocalCoins] = useState<number>(0);
   const [totalCoins, setTotalCoins] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
-  const { user, updateUserScore, updateUserEnergy, status } = useUser();
+  const { user, updateUserScore, status } = useUser();
 
-  const [energy, setEnergy] = useState<number | null>(100);
   const [isActive, setIsActive] = useState(false);
-
-  // console.log(user);
-  // console.log(energy);
+  const [totalEnergy, setTotalEnergy] = useState<number>(0); // Stay track of total energy
 
   useEffect(() => {
-    const fetchCoins = async () => {
+    const fetchData = async () => {
       if (user) {
         setTotalCoins(user?.score);
+        setTotalEnergy(user.energy);
       } else {
         setTotalCoins(0);
+        setTotalEnergy(0);
       }
     };
 
-    fetchCoins();
+    fetchData();
   }, [user]);
 
   useEffect(() => {
     setIsActive(true);
-    console.log("use effect start: " + localCoins);
     const updateScore = async () => {
-      console.log("loc" + localCoins);
       if (localCoins > 0) {
         const newScore = totalCoins + localCoins;
         try {
-          console.log("update!");
-          await updateUserScore(newScore);
+          await updateUserScore(localCoins);
           setTotalCoins(newScore);
           setLocalCoins(0);
         } catch (error) {
@@ -55,30 +51,20 @@ const HomePage = () => {
 
     const interval = setInterval(() => {
       updateScore();
-    }, 500);
+    }, 400);
 
     return () => clearInterval(interval);
   }, [localCoins, totalCoins]);
 
   const increaseScore = () => {
-    if (energy && energy > 0) {
+    // Adding coin only if there's energy left
+    if (totalEnergy && totalEnergy > 0) {
       setLocalCoins((prev) => {
         const newCoins = prev + 1;
+        // Decrease energy by 1 each time a score is increased
+        setTotalEnergy((prevEnergy) => (prevEnergy > 0 ? prevEnergy - 1 : 0));
         return newCoins;
       });
-    }
-  };
-
-  const decreaseEnergy = async () => {
-    if (energy && energy > 0) {
-      const newEnergy = energy - 1;
-      setEnergy(newEnergy);
-      try {
-        await updateUserEnergy(newEnergy);
-      } catch (error) {
-        console.error("Error updating energy:", error);
-        setError("Ошибка обновления энергии. Пожалуйста, попробуйте еще раз.");
-      }
     }
   };
 
@@ -89,17 +75,11 @@ const HomePage = () => {
     counter: number,
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
-    if (energy && energy > 0) {
+    if (totalEnergy && totalEnergy > 0) {
       setMessages((prev) => [
         ...prev,
         { id: counter, x: event.clientX, y: event.clientY },
       ]);
-    }
-  };
-
-  const increaseEnergy = () => {
-    if (energy && energy < MAX_ENERGY) {
-      setEnergy((prev) => prev + 1);
     }
   };
 
@@ -110,15 +90,11 @@ const HomePage = () => {
       ) : (
         <>
           <Greeting />
-          <EnergyBlock
-            energy={energy ? energy : 0}
-            increaseEnergy={increaseEnergy}
-          />
+          <EnergyBlock energy={totalEnergy > 0 ? totalEnergy : 0} />
           <ClickerBtn
             increaseScore={increaseScore}
-            decreaseEnergy={decreaseEnergy}
             handleSetMessages={handleSetMessages}
-            isActive={isActive}
+            isActive={isActive && totalEnergy > 0} // Enable button only if energy > 0
           />
           <ScoreBlock score={totalCoins + localCoins} />
           {error && <div className="error-message">{error}</div>}

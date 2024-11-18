@@ -1,14 +1,14 @@
 import "./EnergyBlock.scss";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
 import { RiFlashlightLine } from "react-icons/ri";
 
 interface EnergyBlockProps {
   energy: number;
-  increaseEnergy: () => void;
+  // increaseEnergy: () => void;
 }
 
-const EnergyBlock: FC<EnergyBlockProps> = ({ energy, increaseEnergy }) => {
+const EnergyBlock: FC<EnergyBlockProps> = ({ energy }) => {
   // useEffect(() => {
   //   const interval = setInterval(() => {
   //     increaseEnergy();
