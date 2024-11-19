@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useTg } from "../../hooks/telegram/useTg";
+import { popup } from '@telegram-apps/sdk-react'
 
 const ClipBoard: FC = () => {
   const { tgUser } = useTg();
@@ -10,10 +11,14 @@ const ClipBoard: FC = () => {
     }`;
     try {
       await navigator.clipboard.writeText(inviteLink);
-      alert("Copy link");
+      popup.open({
+        message: "Link successfully copied",
+      })
     } catch (error) {
       console.error("Copy Error:", error);
-      alert("Copy Error");
+      popup.open({
+        message: "Failed to copy link",
+      })
     }
   };
 
