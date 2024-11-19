@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import ClickerBtn from '../../components/ClickerBtn/ClickerBtn'
-import EnergyBlock from '../../components/EnergyBlock/EnergyBlock'
 import Greeting from '../../components/Greeting/Greeting'
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen'
 import ScoreBlock from '../../components/ScoreBlock/ScoreBlock'
 import useUser from '../../hooks/user/useUser'
 import './HomePage.scss'
-// import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
+
 
 const HomePage = () => {
 	const [localCoins, setLocalCoins] = useState<number>(0)
@@ -20,10 +19,10 @@ const HomePage = () => {
 		const fetchData = async () => {
 			if (user) {
 				setTotalCoins(user?.score)
-				// setTotalEnergy(user.energy);
+				
 			} else {
 				setTotalCoins(0)
-				// setTotalEnergy(0);
+				
 			}
 		}
 
@@ -40,7 +39,8 @@ const HomePage = () => {
 					await updateUserScore(newScore)
 					setTotalCoins(newScore)
 					setLocalCoins(0)
-					// setLocalEnergy(0);
+
+			
 				} catch (error) {
 					console.error('Error updating coins:', error)
 					setError('Ошибка обновления счета. Пожалуйста, попробуйте еще раз.')
@@ -78,6 +78,7 @@ const HomePage = () => {
 		])
 	}
 
+ 
 	return (
 		<div className='container home-page'>
 			{status.loading ? (
@@ -85,11 +86,7 @@ const HomePage = () => {
 			) : (
 				<>
 					<Greeting />
-					{/* <EnergyBlock
-						energy={
-							totalEnergy - localEnergy > 0 ? totalEnergy - localEnergy : 0
-						}
-					/> */}
+				
 					<ClickerBtn
 						increaseScore={increaseScore}
 						handleSetMessages={handleSetMessages}
@@ -111,6 +108,8 @@ const HomePage = () => {
 								: 'home-page__blur home-page__blur--2'
 						}
 					></div>
+
+        
 				</>
 			)}
 		</div>
