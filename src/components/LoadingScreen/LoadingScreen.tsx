@@ -7,7 +7,7 @@ const LoadingScreen = () => {
         className="loading-screen__image"
         loading="lazy"
         src={"loader.svg"}
-        alt="coffee beans"
+        alt="tap man loader"
       />
       <div className="loading-screen__text">TapMan</div>
     </div>

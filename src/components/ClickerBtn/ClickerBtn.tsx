@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import './ClickerBtn.scss'
-import { hapticFeedback } from '@telegram-apps/sdk'
+import { hapticFeedback } from '@telegram-apps/sdk-react'
 
 interface ClickerBtnProps {
 	increaseScore: () => void
@@ -29,7 +29,7 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
 	>([])
 
 	const [sleepMessages, setSleepMessages] = useState<
-		{ id: number; message: string; x: number; y: number }[]
+		{ id: number; message: string; x: number | string; y: number | string }[]
 	>([])
 
 	const [counter, setCounter] = useState(0)
