@@ -2,18 +2,17 @@ import ShareBtn from "../../components/ShareBtn/ShareBtn";
 import Clipboard from "../../components/ClipBoard/ClipBoard";
 
 import "./TeamPage.scss";
-import { useState } from "react";
+import useUser from "../../hooks/user/useUser";
+import TeamList from "../../components/TeamList/TeamList";
 
 const TeamPage = () => {
-  const [ref, setRef] = useState([]);
+  const { user } = useUser();
 
   return (
     <div className="team-page__container container">
       <div className="team-page__main">
         <h3 className="page-title">My Team</h3>
-        <ul className="team-page__list list-reset">
-          {ref.length ? ref.length : "No referral friends found!"}
-        </ul>
+        <TeamList referrals={user?.referrallArray || []} />
       </div>
       <div className="team-page__actions">
         <ShareBtn />

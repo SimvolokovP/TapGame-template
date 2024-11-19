@@ -7,7 +7,6 @@ import { ClipLoader } from "react-spinners";
 import "./SubTask.scss";
 
 import { TbBrandTelegram } from "react-icons/tb";
-import { IUser } from "../../models/IUser";
 import { openTelegramLink } from '@telegram-apps/sdk-react'
 
 interface SubTaskProps {
