@@ -19,6 +19,7 @@ const HomePage = () => {
   const [localEnergy, setLocalEnergy] = useState<number>(0);
 
   useEffect(() => {
+    
     const fetchData = async () => {
       if (user) {
         setTotalCoins(user?.score);
