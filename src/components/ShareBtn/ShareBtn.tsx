@@ -1,6 +1,8 @@
-import { shareURL } from "@telegram-apps/sdk";
+
 import { FC } from "react";
 import { useTg } from "../../hooks/telegram/useTg";
+import { shareURL } from '@telegram-apps/sdk-react'
+
 
 const ShareBtn: FC = () => {
   const { tgUser } = useTg();
@@ -8,7 +10,7 @@ const ShareBtn: FC = () => {
     if (shareURL.isAvailable()) {
       shareURL(
         `${import.meta.env.VITE_TG_INVITE_URL}?start=${tgUser?.id}`,
-        "Check out this cool group!"
+        "Check out this cool app!"
       );
     }
 

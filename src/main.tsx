@@ -6,11 +6,9 @@ import { BrowserRouter } from 'react-router-dom'
 import { init, themeParams } from '@telegram-apps/sdk-react'
 
 init()
-if (!themeParams.isMounted) {
-	themeParams.mount()
-  themeParams.bindCssVars()
-}
 
+themeParams.mount()
+themeParams.bindCssVars()
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
