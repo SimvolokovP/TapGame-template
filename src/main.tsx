@@ -7,6 +7,7 @@ import { init } from '@telegram-apps/sdk-react'
 
 init()
 
+
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
 		<BrowserRouter>
