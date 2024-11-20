@@ -2,22 +2,10 @@ import "./EnergyBlock.scss";
 import { FC } from "react";
 import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
 import { RiFlashlightLine } from "react-icons/ri";
+import useEnergyStore from "../../store/useEnergyStore";
 
-interface EnergyBlockProps {
-  energy: number;
-  // increaseEnergy: () => void;
-}
-
-const EnergyBlock: FC<EnergyBlockProps> = ({ energy }) => {
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     increaseEnergy();
-  //   }, 1000);
-
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [energy, increaseEnergy]);
+const EnergyBlock: FC = () => {
+  const { energy } = useEnergyStore();
 
   return (
     <div className="energy">
