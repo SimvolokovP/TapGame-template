@@ -1,52 +1,57 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { MAX_ENERGY } from "../utils/MAX_ENERGY";
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+import { MAX_ENERGY } from '../utils/MAX_ENERGY'
 import {
-  getCloudStorageItem,
-  setCloudStorageItem,
-} from "@telegram-apps/sdk-react";
+	getCloudStorageItem,
+	setCloudStorageItem,
+} from '@telegram-apps/sdk-react'
 
 interface EnergyState {
-  energy: number;
-  maxEnergy: number;
-  fetchEnergy: () => Promise<void>;
-  increaseEnergy: () => Promise<void>;
-  startAutoIncrease: () => void;
-  substructEnergy: () => void;
+	energy: number
+	maxEnergy: number
+	fetchEnergy: () => Promise<void>
+	increaseEnergy: () => Promise<void>
+	startAutoIncrease: () => void
+	stopAutoIncrease: () => void
+	substructEnergy: () => void
 }
 
-let interval: NodeJS.Timeout | null = null;
+let interval: NodeJS.Timeout | null = null
 
 const useEnergyStore = create<EnergyState>()(
-  persist(
-    (set, get) => ({
-      energy: 0,
-      maxEnergy: MAX_ENERGY,
-      fetchEnergy: async () => {
-        const existingEnergy = await getCloudStorageItem("energy");
-        if (existingEnergy) {
-          set({ energy: Number(existingEnergy) });
-        }
-      },
-      increaseEnergy: async () => {
-        set((state) => {
-          const newEnergy = Math.min(state.energy + 1, state.maxEnergy);
-          return { energy: newEnergy };
-        });
+	persist(
+		(set, get) => ({
+			energy: 0,
+			maxEnergy: MAX_ENERGY,
+			fetchEnergy: async () => {
+				const existingEnergy = await getCloudStorageItem('energy')
+				if (existingEnergy) {
+					set({ energy: Number(existingEnergy) })
+				}
+			},
+			increaseEnergy: async () => {
+				set(state => {
+					const newEnergy = Math.min(state.energy + 1, state.maxEnergy)
+					return { energy: newEnergy }
+				})
 
-        const newEnergy = get().energy + 1;
-        await setCloudStorageItem("energy", String(newEnergy));
-      },
-      substructEnergy: async () => {
-        set((state) => {
-          const newEnergy = state.energy - 1;
-          return { energy: newEnergy };
-        });
+				const newEnergy = get().energy + 1
+				await setCloudStorageItem('energy', String(newEnergy))
+			},
+			substructEnergy: async () => {
+				set(state => {
+					const newEnergy = Math.max(state.energy - 1, 0)
+					return { energy: newEnergy }
+				})
 
-        const newEnergy = get().energy - 1;
-        await setCloudStorageItem("energy", String(newEnergy));
-      },
-      startAutoIncrease: () => {
+				const newEnergy = get().energy
+				await setCloudStorageItem('energy', String(newEnergy))
+
+				if (newEnergy < get().maxEnergy && interval === null) {
+					get().startAutoIncrease()
+				}
+			},
+			startAutoIncrease: () => {
         if (interval === null) {
           interval = setInterval(async () => {
             const { energy, maxEnergy } = get();
@@ -54,16 +59,23 @@ const useEnergyStore = create<EnergyState>()(
               await get().increaseEnergy();
             } else {
               clearInterval(interval!);
-              interval = null;
+              interval = null; 
             }
           }, 1000);
         }
       },
-    }),
-    {
-      name: "energy-storage",
-    }
-  )
-);
+      
+			stopAutoIncrease: () => {
+				if (interval !== null) {
+					clearInterval(interval)
+					interval = null
+				}
+			},
+		}),
+		{
+			name: 'energy-storage',
+		}
+	)
+)
 
-export default useEnergyStore;
+export default useEnergyStore
