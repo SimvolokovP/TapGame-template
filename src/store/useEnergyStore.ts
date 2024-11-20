@@ -8,6 +8,7 @@ import {
 interface EnergyState {
   energy: number;
   maxEnergy: number;
+  isLoading: boolean; // Флаг для отслеживания загрузки
   fetchEnergy: () => Promise<void>;
   increaseEnergy: () => Promise<void>;
   startAutoIncrease: () => void;
@@ -18,20 +19,21 @@ interface EnergyState {
 let interval: NodeJS.Timeout | null = null;
 
 const useEnergyStore = create<EnergyState>((set, get) => ({
-  energy: 500, // Устанавливаем начальное значение 500, чтобы не было `null`
+  energy: 500, // Начальное значение энергии
   maxEnergy: MAX_ENERGY,
+  isLoading: true, // Состояние загрузки
   fetchEnergy: async () => {
+    set({ isLoading: true }); // Устанавливаем флаг загрузки
     const existingEnergy = await getCloudStorageItem('energy');
     if (existingEnergy) {
-      // Если данные есть, загружаем их
-      set({ energy: Number(existingEnergy) });
+      set({ energy: Number(existingEnergy), isLoading: false });
     } else {
-      // Если данных нет, сохраняем значение 500 в storage
-      set({ energy: 500 });
+      set({ energy: 500, isLoading: false });
       await setCloudStorageItem('energy', '500');
     }
   },
   increaseEnergy: async () => {
+    if (get().isLoading) return; // Не даем увеличивать энергию, пока идет загрузка
     set((state) => {
       const newEnergy = Math.min(state.energy + 1, state.maxEnergy);
       return { energy: newEnergy };
@@ -40,6 +42,7 @@ const useEnergyStore = create<EnergyState>((set, get) => ({
     await setCloudStorageItem('energy', String(newEnergy));
   },
   substructEnergy: async () => {
+    if (get().isLoading) return; // Не даем уменьшать энергию, пока идет загрузка
     set((state) => {
       const newEnergy = Math.max(state.energy - 1, 0);
       return { energy: newEnergy };
