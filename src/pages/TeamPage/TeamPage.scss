@@ -36,12 +36,32 @@
     width: 100%;
     padding: 0 8px;
     display: flex;
+    justify-content: space-between;
     gap: 8px;
     align-items: center;
     font-size: 18px;
 
+    &-block {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     & span {
-      color: #fbba40;
+      color: var(--accent-color);
+    }
+
+    &-received {
+      font-size: 11px;
+      color: var(--accent-color);
+    }
+
+    &-coin {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
     }
   }
 }

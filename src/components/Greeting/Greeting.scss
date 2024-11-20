@@ -9,7 +9,7 @@
     font-size: 20px;
     display: flex;
     flex-direction: column;
-    color: #fbba40;
+    color: var(--accent-color);
 
     & span {
       font-weight: 400;

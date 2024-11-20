@@ -32,7 +32,7 @@
     font-weight: 500;
 
     &.active {
-      color: #fbba40; 
+      color: var(--accent-color);
     }
   }
 }
