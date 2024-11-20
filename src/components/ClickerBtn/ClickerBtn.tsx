@@ -82,6 +82,7 @@ const ClickerBtn: FC<ClickerBtnProps> = ({ increaseScore, isActive }) => {
 				className='circle-outer'
 				style={{ transform }}
 				onClick={handleClick}
+				tabIndex={-1}
 			>
 				<div className='circle-inner'>
 					<img src='/batman4.svg' alt='batman' draggable={false} />
