@@ -1,16 +1,15 @@
 import "./EnergyBlock.scss";
 import { FC } from "react";
-import { MAX_ENERGY } from "../../utils/MAX_ENERGY";
 import { RiFlashlightLine } from "react-icons/ri";
 import useEnergyStore from "../../store/useEnergyStore";
 
 const EnergyBlock: FC = () => {
-  const { energy } = useEnergyStore();
+  const { energy, maxEnergy } = useEnergyStore();
 
   return (
     <div className="energy">
       <div className="energy__count">
-        {energy} / {MAX_ENERGY}
+        {energy} / {maxEnergy}
       </div>
       <RiFlashlightLine size={25} />
     </div>
