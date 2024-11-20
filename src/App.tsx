@@ -4,14 +4,10 @@ import AppRoutes from './router/AppRoutes'
 import './styles/App.css'
 import useEnergyStore from './store/useEnergyStore'
 import { useEffect } from 'react'
-import { cloudStorage } from '@telegram-apps/sdk-react'
+
 
 function App() {
 	const { startAutoIncrease, fetchEnergy } = useEnergyStore()
-
-  // useEffect(() => {
-  //   cloudStorage.deleteItem('energy')
-  // }, [])
 
 	useEffect(() => {
 		fetchEnergy().then(() => {
