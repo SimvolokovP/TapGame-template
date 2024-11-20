@@ -1,19 +1,23 @@
 .sub-task {
   background-color: var(--tg-theme-link-color);
-  opacity: 0.5;
+  // opacity: 0.5;
   color: white;
   display: flex;
   align-items: center;
   gap: 16px;
   font-size: 20px;
   border: none;
-  cursor: auto;
+  cursor: pointer;
   outline: none;
   border-radius: 8px;
   /* width: 180px; */
   padding: 6px;
-  width: 240px;
   min-height: 62px;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 
   &-active {
     opacity: 1;
@@ -33,6 +37,7 @@
     }
 
     & span {
+      color: #fbba40;
       font-weight: 400;
       font-size: 12px;
     }

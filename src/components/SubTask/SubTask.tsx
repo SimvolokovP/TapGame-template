@@ -53,6 +53,7 @@ const SubTask: FC<SubTaskProps> = ({ isTaskActive, taskAction }) => {
     <>
       <button
         className={isTaskActive ? "sub-task-active sub-task" : "sub-task"}
+        disabled={!isTaskActive}
         onClick={handleCheckSubscription}
       >
         <TbBrandTelegram size={32} />
@@ -61,7 +62,7 @@ const SubTask: FC<SubTaskProps> = ({ isTaskActive, taskAction }) => {
         ) : (
           <div className="sub-task__content">
             <div>Subscribe to our TG channel</div>
-            <span>1000 coins</span>
+            <span> + 1000 coins</span>
           </div>
         )}
       </button>

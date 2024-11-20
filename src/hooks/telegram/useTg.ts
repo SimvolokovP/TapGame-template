@@ -1,4 +1,5 @@
-import { retrieveLaunchParams } from "@telegram-apps/sdk";
+
+import { retrieveLaunchParams } from '@telegram-apps/sdk-react'
 import { ITgUser } from "../../models/ITgUser";
 
 export const useTg = () => {

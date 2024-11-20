@@ -6,7 +6,6 @@ import ScoreBlock from '../../components/ScoreBlock/ScoreBlock'
 import useUser from '../../hooks/user/useUser'
 import './HomePage.scss'
 
-
 const HomePage = () => {
 	const [localCoins, setLocalCoins] = useState<number>(0)
 	const [totalCoins, setTotalCoins] = useState<number>(0)
@@ -19,10 +18,8 @@ const HomePage = () => {
 		const fetchData = async () => {
 			if (user) {
 				setTotalCoins(user?.score)
-				
 			} else {
 				setTotalCoins(0)
-				
 			}
 		}
 
@@ -39,11 +36,9 @@ const HomePage = () => {
 					await updateUserScore(newScore)
 					setTotalCoins(newScore)
 					setLocalCoins(0)
-
-			
 				} catch (error) {
 					console.error('Error updating coins:', error)
-					setError('Ошибка обновления счета. Пожалуйста, попробуйте еще раз.')
+					setError('Error updating coins. Please try again later.')
 				}
 			} else {
 				setIsActive(false)
@@ -65,20 +60,6 @@ const HomePage = () => {
 		})
 	}
 
-	const handleSetMessages = (
-		setMessages: React.Dispatch<
-			React.SetStateAction<{ id: number; x: number; y: number }[]>
-		>,
-		counter: number,
-		event: React.MouseEvent<HTMLButtonElement>
-	) => {
-		setMessages(prev => [
-			...prev,
-			{ id: counter, x: event.clientX, y: event.clientY },
-		])
-	}
-
- 
 	return (
 		<div className='container home-page'>
 			{status.loading ? (
@@ -86,12 +67,8 @@ const HomePage = () => {
 			) : (
 				<>
 					<Greeting />
-				
-					<ClickerBtn
-						increaseScore={increaseScore}
-						handleSetMessages={handleSetMessages}
-						isActive={isActive}
-					/>
+
+					<ClickerBtn increaseScore={increaseScore} isActive={isActive} />
 					<ScoreBlock score={totalCoins + localCoins} />
 					{error && <div className='error-message'>{error}</div>}
 					<div
@@ -108,8 +85,6 @@ const HomePage = () => {
 								: 'home-page__blur home-page__blur--2'
 						}
 					></div>
-
-        
 				</>
 			)}
 		</div>

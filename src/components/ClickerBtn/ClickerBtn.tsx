@@ -4,21 +4,10 @@ import { hapticFeedback } from '@telegram-apps/sdk-react'
 
 interface ClickerBtnProps {
 	increaseScore: () => void
-	handleSetMessages: (
-		setMessages: React.Dispatch<
-			React.SetStateAction<{ id: number; x: number; y: number }[]>
-		>,
-		counter: number,
-		event: React.MouseEvent<HTMLButtonElement>
-	) => void
 	isActive: boolean
 }
 
-const ClickerBtn: FC<ClickerBtnProps> = ({
-	increaseScore,
-	handleSetMessages,
-	isActive,
-}) => {
+const ClickerBtn: FC<ClickerBtnProps> = ({ increaseScore, isActive }) => {
 	const [transform, setTransform] = useState(
 		'perspective(282px) rotateX(0deg) rotateY(0deg)'
 	)
@@ -31,6 +20,18 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
 	>([])
 
 	const [counter, setCounter] = useState(0)
+	const handleSetMessages = (
+		setMessages: React.Dispatch<
+			React.SetStateAction<{ id: number; x: number; y: number }[]>
+		>,
+		counter: number,
+		event: React.MouseEvent<HTMLButtonElement>
+	) => {
+		setMessages(prev => [
+			...prev,
+			{ id: counter, x: event.clientX, y: event.clientY },
+		])
+	}
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		hapticFeedback.impactOccurred('soft')
 		const rect = event.currentTarget.getBoundingClientRect()
@@ -44,7 +45,6 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
 		setTransform(`perspective(282px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`)
 
 		increaseScore()
-
 
 		setCounter(counter + 1)
 		handleSetMessages(setMessages, counter, event)
@@ -65,8 +65,8 @@ const ClickerBtn: FC<ClickerBtnProps> = ({
 				const newZ = {
 					id: Date.now(),
 					message: 'Z',
-          y: '40%',
-          x: '65%'
+					y: '40%',
+					x: '65%',
 				}
 				setSleepMessages(prev => [...prev, newZ])
 			}, 1000)
