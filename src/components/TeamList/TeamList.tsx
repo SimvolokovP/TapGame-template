@@ -12,8 +12,6 @@ const TeamList: FC<TeamListProps> = ({ referrals }) => {
 	const [loading, setLoading] = useState<boolean>(false)
 
 	useEffect(() => {
-		console.log(referrals)
-		console.log(friendsInfo)
 		const fetchUserInfos = async () => {
 			setLoading(true)
 			if (!referrals || referrals.length === 0) {

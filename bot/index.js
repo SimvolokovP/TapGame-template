@@ -1,9 +1,9 @@
-const express = require("express");
-const bot = require("./service/TelegramService");
+const express = require('express')
+const bot = require('./service/TelegramService')
 
-const app = express();
-app.use(express.json());
+const app = express()
+app.use(express.json())
 
-const PORT = 8000;
+const PORT = 8000
 
-app.listen(PORT, () => console.log("Сервер запущен на PORT " + PORT));
+app.listen(PORT, () => console.log('The server is running on port ' + PORT))
